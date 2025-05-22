@@ -1,15 +1,15 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
+#include <iostream>
 
-class UserManager
-{
-    public:
-        UserManager();
+using namespace std;
 
-    protected:
+class UserManager {
 
-    private:
+public:
+    UserManager(string userFileName) { cout << userFileName << endl;};
+
 };
 
 #endif // USERMANAGER_H
