@@ -3,11 +3,14 @@
 
 #include <iostream>
 
+#include "File.h"
+
 using namespace std;
 
 class UserFile {
+    File file;
 public:
-    UserFile(string userFilename) {};
+    UserFile(string userFileName) : file(userFileName) {};
 
 };
 
