@@ -3,12 +3,14 @@
 
 #include <iostream>
 
+#include "UserFile.h"
+
 using namespace std;
 
 class UserManager {
-
+    UserFile userFile;
 public:
-    UserManager(string userFileName) { cout << userFileName << endl;};
+    UserManager(string userFileName) : userFile(userFileName) {};
 
 };
 
