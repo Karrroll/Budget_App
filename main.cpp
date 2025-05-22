@@ -5,5 +5,5 @@
 using namespace std;
 
 int main() {
-    BudgetMainApp budgetMainApp;
+    BudgetMainApp budgetMainApp("users.xml", "incomes.xml", "expense.xml");
 }
