@@ -8,7 +8,7 @@ using namespace std;
 class File {
     const string FILE_NAME;
 public:
-    File(const string &fileName) : FILE_NAME(fileName) {};
+    File(string &fileName) : FILE_NAME(fileName) {};
 
 };
 

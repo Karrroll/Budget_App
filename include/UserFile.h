@@ -7,10 +7,9 @@
 
 using namespace std;
 
-class UserFile {
-    File file;
+class UserFile : public File {
 public:
-    UserFile(string userFileName) : file(userFileName) {};
+    UserFile(string userFileName) : File(userFileName) {};
 
 };
 
