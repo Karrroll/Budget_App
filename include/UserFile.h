@@ -11,6 +11,7 @@ class UserFile : public File {
 public:
     UserFile(string userFileName) : File(userFileName) {};
 
+
 };
 
 #endif // USERFILE_H
