@@ -20,9 +20,9 @@ public:
 
 
 protected:
-    CMarkup xmlFile;
+//    CMarkup xmlFile;
     bool isFileExist();
-
+    bool loadXmlFile(CMarkup &xmlFile);
 };
 
 #endif // FILE_H
