@@ -1,9 +1,5 @@
 #include "UserFile.h"
 
-#include <iostream>
-
-using namespace std;
-
 bool UserFile::addUserDataToFile(const User &user) {
     if (!isFileExist())
         createNewXmlFileWithRootNode();
