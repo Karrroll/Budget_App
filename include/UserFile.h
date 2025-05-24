@@ -9,7 +9,7 @@ using namespace std;
 
 class UserFile : public File {
 public:
-    UserFile(string userFileName) : File(userFileName) {};
+    UserFile(const string &userFileName) : File(userFileName, "Users", "User") {};
 
 
 };

@@ -10,7 +10,7 @@ using namespace std;
 class UserManager {
     UserFile userFile;
 public:
-    UserManager(string userFileName) : userFile(userFileName) {};
+    UserManager(const string &userFileName) : userFile(userFileName) {};
 
 };
 
