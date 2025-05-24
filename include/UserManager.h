@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "UserFile.h"
+#include "Utils.h"
 
 using namespace std;
 
