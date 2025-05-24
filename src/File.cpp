@@ -16,3 +16,14 @@ bool File::loadXmlFile(CMarkup &xmlFile) {
     }
     return true;
 }
+
+bool File::enterXmlRootNode(CMarkup &xmlFile) {
+    if (!xmlFile.FindElem(ROOT_NODE_NAME)) {
+        cout << "Root node '" << ROOT_NODE_NAME << "' not found. Please verify '" << FILE_NAME << "' file format." << endl;
+        return false;
+    }
+    xmlFile.IntoElem();
+    return true;
+}
+
+

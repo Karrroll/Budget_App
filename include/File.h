@@ -23,6 +23,7 @@ protected:
 //    CMarkup xmlFile;
     bool isFileExist();
     bool loadXmlFile(CMarkup &xmlFile);
+    bool enterXmlRootNode(CMarkup &xmlFile);
 };
 
 #endif // FILE_H
