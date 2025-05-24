@@ -24,6 +24,7 @@ protected:
     bool isFileExist();
     bool loadXmlFile(CMarkup &xmlFile);
     bool enterXmlRootNode(CMarkup &xmlFile);
+    void addChildNode(CMarkup &xmlFile);
 };
 
 #endif // FILE_H

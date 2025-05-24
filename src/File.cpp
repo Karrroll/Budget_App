@@ -26,4 +26,8 @@ bool File::enterXmlRootNode(CMarkup &xmlFile) {
     return true;
 }
 
+void File::addChildNode(CMarkup &xmlFile) {
+    xmlFile.AddElem(CHILD_NODE_NAME);
+    xmlFile.IntoElem();
+}
 
