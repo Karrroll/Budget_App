@@ -15,6 +15,16 @@ bool Utils::inputEmpty(const string &input) {
     return false;
 }
 
+bool Utils::validateFullNameChar(const string &input) {
+    for (char character : input) {
+        if (!isalpha(static_cast<unsigned char>(character))) {
+            cout << "Field cannot contain '" << character << "' character." <<  endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 bool Utils::containsDigits(const string &input) {
     for (char character : input) {
         if (isdigit(static_cast<unsigned char>(character))) {
@@ -47,4 +57,10 @@ bool Utils::validateMinLength(const string &input, const int minLength) {
     } else {
         return true;
     }
+}
+
+string Utils::upperFirstLowerRest(string &input) {
+    input[0] = toupper(input[0]);
+    transform(input.begin() + 1, input.end(), input.begin() + 1, ::tolower);
+    return input;
 }
