@@ -2,7 +2,6 @@
 #define USERMANAGER_H
 
 #include <iostream>
-//#include <cstdlib>            //cls
 
 #include "UserFile.h"
 #include "Utils.h"

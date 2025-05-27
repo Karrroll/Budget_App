@@ -42,16 +42,6 @@ bool Utils::containsOnlyLetters(const string &input) {
     return true;
 }
 
-//bool Utils::containsDigits(const string &input) {
-//    for (char character : input) {
-//        if (isdigit(static_cast<unsigned char>(character))) {
-//            cout << "Field cannot contain digits." << endl;
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
 bool Utils::containsSpaces(const string &input) {
     for (char character : input) {
         if (character == ' ') {

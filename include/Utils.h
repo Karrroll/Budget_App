@@ -16,7 +16,6 @@ public:
     static bool validateInput(const string &input, FieldType inputType);
     static bool inputEmpty(const string &input);
     static bool containsOnlyLetters(const string &input);
-//    static bool containsDigits(const string &input);
     static bool containsSpaces(const string &input);
     static bool correctLength(const string &input, const int minLength, const int maxLength);
     static string upperFirstLowerRest(string &input);
