@@ -1,10 +1,27 @@
 #include "Utils.h"
 
-string Utils::getLinie() {
+string Utils::readLine() {
     string input = "";
 
     getline(cin, input);
     return input;
+}
+
+bool Utils::validateInput(const string &input, FieldType type) {
+    if (inputEmpty(input) || containsSpaces(input))
+        return false;
+
+    switch(type) {
+        case(FieldType::FIRST_NAME): case(FieldType::LAST_NAME):
+            return correctLength(input, 2, 20) && containsOnlyLetters(input);
+        case(FieldType::LOGIN):
+            return correctLength(input, 3, 20);
+        case(FieldType::PASSWORD):
+            return correctLength(input, 6, 20);
+        default:
+            cout << "Unknown field type." << endl;
+            return false;
+    }
 }
 
 bool Utils::inputEmpty(const string &input) {
@@ -15,7 +32,7 @@ bool Utils::inputEmpty(const string &input) {
     return false;
 }
 
-bool Utils::validateFullNameChar(const string &input) {
+bool Utils::containsOnlyLetters(const string &input) {
     for (char character : input) {
         if (!isalpha(static_cast<unsigned char>(character))) {
             cout << "Field cannot contain '" << character << "' character." <<  endl;
@@ -25,15 +42,15 @@ bool Utils::validateFullNameChar(const string &input) {
     return true;
 }
 
-bool Utils::containsDigits(const string &input) {
-    for (char character : input) {
-        if (isdigit(static_cast<unsigned char>(character))) {
-            cout << "Field cannot contain digits." << endl;
-            return true;
-        }
-    }
-    return false;
-}
+//bool Utils::containsDigits(const string &input) {
+//    for (char character : input) {
+//        if (isdigit(static_cast<unsigned char>(character))) {
+//            cout << "Field cannot contain digits." << endl;
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
 bool Utils::containsSpaces(const string &input) {
     for (char character : input) {
@@ -45,8 +62,7 @@ bool Utils::containsSpaces(const string &input) {
     return false;
 }
 
-bool Utils::validateMinLength(const string &input, const int minLength) {
-    const int maxLength = 20;
+bool Utils::correctLength(const string &input, const int minLength, const int maxLength) {
 
     if (input.length() < size_t(minLength)) {
         cout << "Field is too short. Minimum length is " << minLength << " characters." << endl;

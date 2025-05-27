@@ -17,5 +17,10 @@ bool UserFile::addUserDataToFile(const User &user) {
     } else {
         return false;
     }
-    return xmlFile.Save(FILE_NAME);
+
+    if (!xmlFile.Save(FILE_NAME)) {
+        cout << "Failed to save the XML file: " << FILE_NAME << endl;
+        return false;
+    }
+    return true;
 }

@@ -1,22 +1,36 @@
 #include "UserManager.h"
 
+void UserManager::registerNewUser() {
+    userFile.addUserDataToFile(enterUserData());
+}
+
 User UserManager::enterUserData() {
     User user;
-    string firstName = "", lastName = "", userName = "", userPassword = "";
 
 //    user.id = file.getLastId()  // implementackja
-    cout << "First Name: ";
-    user.firstName = firstName;
+    user.id = 1;
+    cout << "First Name: " ;
+    while (!Utils::validateInput(user.firstName = Utils::readLine(), FieldType::FIRST_NAME)) {
+        cout << "Try again." << endl;
+    }
+    Utils::upperFirstLowerRest(user.firstName);
+
     cout << "Last Name: ";
-    user.lastName = lastName;
+    while (!Utils::validateInput(user.lastName = Utils::readLine(), FieldType::LAST_NAME)) {
+        cout << "Try again." << endl;
+    }
+    Utils::upperFirstLowerRest(user.lastName);
+
     cout << "Login: ";
-    user.userName = userName;
+    while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN)) {
+        cout << "Try again." << endl;
+    }
+
     cout << "Password: ";
-    user.userPassword = userPassword;
+    while (!Utils::validateInput(user.userPassword = Utils::readLine(), FieldType::PASSWORD)) {
+        cout << "Try again." << endl;
+    }
 
     return user;
 }
 
-void UserManager::registerNewUser() {
-
-}
