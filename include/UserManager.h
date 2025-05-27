@@ -2,6 +2,7 @@
 #define USERMANAGER_H
 
 #include <iostream>
+#include <vector>
 
 #include "UserFile.h"
 
@@ -9,8 +10,11 @@ using namespace std;
 
 class UserManager {
     UserFile userFile;
+    vector <User> users;
 public:
-    UserManager(const string &userFileName) : userFile(userFileName) {};
+    UserManager(const string &userFileName) : userFile(userFileName) {
+        users = userFile.loadUsersFromFile();
+    };
 
 };
 
