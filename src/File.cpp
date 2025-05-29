@@ -1,15 +1,11 @@
 #include "File.h"
 
-#include <iostream>
-
-using namespace std;
-
 bool File::isFileExist() {
     ifstream file(FILE_NAME);
     return file.good();
 }
 
-bool File::loadXmlFile() {
+bool File::loadXmlFile(CMarkup &xmlFile) {
     if (!xmlFile.Load(FILE_NAME)) {
         cout << "Failed to load XML file: '" << FILE_NAME << "'" << endl;
         return false;
@@ -17,7 +13,7 @@ bool File::loadXmlFile() {
     return true;
 }
 
-bool File::enterXmlRootNode() {
+bool File::enterXmlRootNode(CMarkup &xmlFile) {
     if (!xmlFile.FindElem(ROOT_NODE_NAME)) {
         cout << "Root node '" << ROOT_NODE_NAME << "' not found. Please verify '" << FILE_NAME << "' file format." << endl;
         return false;
@@ -26,13 +22,18 @@ bool File::enterXmlRootNode() {
     return true;
 }
 
-void File::createNewXmlFileWithRootNode() {
+void File::createNewXmlFileWithRootNode(CMarkup &xmlFile) {
     xmlFile.AddElem(ROOT_NODE_NAME);
     xmlFile.Save(FILE_NAME);
 }
 
-void File::addChildNode() {
+void File::addChildNode(CMarkup &xmlFile) {
     xmlFile.AddElem(CHILD_NODE_NAME);
     xmlFile.IntoElem();
 }
 
+string File::getElementData(CMarkup &xmlFile, const string &elementName) {
+    if (xmlFile.FindElem(elementName))
+        return xmlFile.GetData();
+    return "";
+}
