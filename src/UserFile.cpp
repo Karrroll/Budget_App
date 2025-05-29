@@ -2,7 +2,6 @@
 
 vector <User> UserFile::loadUsersFromFile() {
     CMarkup xmlFile;
-    User user;
     vector <User> users;
 
     if (!isFileExist())
@@ -14,6 +13,7 @@ vector <User> UserFile::loadUsersFromFile() {
         while (xmlFile.FindElem(userNodeName)) {
             xmlFile.IntoElem();
 
+            User user;
             string idString = getElementData(xmlFile, "id");
             user.firstName = getElementData(xmlFile, "firstName");
             user.lastName = getElementData(xmlFile, "lastName");
@@ -27,13 +27,15 @@ vector <User> UserFile::loadUsersFromFile() {
                 cout << xmlFile.GetSubDoc() << endl;
                 cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
                 system("pause");
-                users.clear();
-                return users;
+                exit(1);
             }
 
             user.id = stoi(idString);
             users.push_back(user);
         }
+    } else {
+        exit(1);
     }
+
     return users;
 }
