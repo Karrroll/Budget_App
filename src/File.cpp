@@ -31,3 +31,8 @@ void File::addChildNode(CMarkup &xmlFile) {
     xmlFile.IntoElem();
 }
 
+string File::getElementData(CMarkup &xmlFile, const string &elementName) {
+    if (xmlFile.FindElem(elementName))
+        return xmlFile.GetData();
+    return "";
+}

@@ -21,13 +21,14 @@ public:
 
 protected:
 //    CMarkup xmlFile;
-//    string getFileName() const { return FILE_NAME; };
+    string getFileName() const { return FILE_NAME; };
 //    string getRootNodeName() const { return ROOT_NODE_NAME; };
     string getChildNodeName() const { return CHILD_NODE_NAME; };
     bool isFileExist();
     bool loadXmlFile(CMarkup &xmlFile);
     bool enterXmlRootNode(CMarkup &xmlFile);
     void addChildNode(CMarkup &xmlFile);
+    string getElementData(CMarkup &xmlFile, const string &elementName);
 };
 
 #endif // FILE_H

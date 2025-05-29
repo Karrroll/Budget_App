@@ -14,25 +14,26 @@ vector <User> UserFile::loadUsersFromFile() {
         while (xmlFile.FindElem(userNodeName)) {
             xmlFile.IntoElem();
 
-            xmlFile.FindElem("id");
-            user.id = stoi(xmlFile.GetData());
-
-            xmlFile.FindElem("firstName");
-            user.firstName = xmlFile.GetData();
-
-            xmlFile.FindElem("lastName");
-            user.lastName = xmlFile.GetData();
-
-            xmlFile.FindElem("login");
-            user.userName = xmlFile.GetData();
-
-            xmlFile.FindElem("password");
-            user.userPassword = xmlFile.GetData();
+            string idString = getElementData(xmlFile, "id");
+            user.firstName = getElementData(xmlFile, "firstName");
+            user.lastName = getElementData(xmlFile, "lastName");
+            user.userName = getElementData(xmlFile, "login");
+            user.userPassword = getElementData(xmlFile, "password");
 
             xmlFile.OutOfElem();
+
+            if (idString.empty() || user.firstName.empty() || user.lastName.empty() || user.userName.empty() || user.userPassword.empty()) {
+                cout << "Failed to load user data:" << endl;
+                cout << xmlFile.GetSubDoc() << endl;
+                cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
+                system("pause");
+                users.clear();
+                return users;
+            }
+
+            user.id = stoi(idString);
             users.push_back(user);
         }
     }
     return users;
 }
-
