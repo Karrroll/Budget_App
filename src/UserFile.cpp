@@ -23,6 +23,8 @@ bool UserFile::addUserDataToFile(const User &user) {
         cout << "Failed to save the XML file: " << getFileName() << endl;
         return false;
     }
+
+    setLastId(user.id);
     return true;
 }
 
@@ -34,12 +36,12 @@ vector <User> UserFile::loadUsersFromFile() {
         return users;
 
     if (loadXmlFile(xmlFile) && enterXmlRootNode(xmlFile)) {
+        User user;
         const string userNodeName = getChildNodeName();
 
         while (xmlFile.FindElem(userNodeName)) {
             xmlFile.IntoElem();
 
-            User user;
             string idString = getElementData(xmlFile, "id");
             user.firstName = getElementData(xmlFile, "firstName");
             user.lastName = getElementData(xmlFile, "lastName");
@@ -59,6 +61,10 @@ vector <User> UserFile::loadUsersFromFile() {
             user.id = stoi(idString);
             users.push_back(user);
         }
+
+        if (!users.empty())
+            setLastId(user.id);
+
     } else {
         exit(1);
     }

@@ -7,8 +7,7 @@ void UserManager::registerNewUser() {
 User UserManager::enterUserData() {
     User user;
 
-//    user.id = file.getLastId()  // implementackja
-    user.id = 1;
+    user.id = userFile.getLastId() + 1;
     cout << "First Name: " ;
     while (!Utils::validateInput(user.firstName = Utils::readLine(), FieldType::FIRST_NAME)) {
         cout << "Try again." << endl;

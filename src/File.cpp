@@ -1,5 +1,10 @@
 #include "File.h"
 
+void File::setLastId(const int &id) {
+    if (id > 0)
+        lastId = id;
+}
+
 bool File::isFileExist() {
     ifstream file(FILE_NAME);
     return file.good();
