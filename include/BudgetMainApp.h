@@ -8,6 +8,7 @@
 using namespace std;
 
 class BudgetMainApp {
+private:
     UserManager userManager;
     const string INCOME_FILE_NAME;
     const string EXPENSE_FILE_NAME;

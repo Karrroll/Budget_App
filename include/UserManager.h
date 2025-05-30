@@ -12,16 +12,22 @@ using namespace std;
 class UserManager {
 private:
     UserFile userFile;
+    int loggedUserId;
     vector <User> users;
 
     User enterUserData();
 
 public:
     UserManager(const string &userFileName) : userFile(userFileName) {
+        loggedUserId = 0;
         users = userFile.loadUsersFromFile();
     };
 
+    int getLoggedUserId() const { return loggedUserId; };
+    void setLoggedUserId(const int id);
+
     void registerNewUser();
+    void loginUser();
 };
 
 #endif // USERMANAGER_H

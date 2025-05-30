@@ -1,8 +1,8 @@
 #include "File.h"
 
-void File::setLastId(const int &id) {
+void File::setLastId(const int id) {
     if (id > 0)
-        lastId = id;
+        this->lastId = id;
 }
 
 bool File::isFileExist() {

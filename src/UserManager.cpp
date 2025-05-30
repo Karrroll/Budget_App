@@ -1,7 +1,16 @@
 #include "UserManager.h"
 
+void UserManager::setLoggedUserId(const int id) {
+    if (id > 0)
+        this->loggedUserId = id;
+}
+
 void UserManager::registerNewUser() {
     userFile.addUserDataToFile(enterUserData());
+}
+
+void UserManager::loginUser() {
+
 }
 
 User UserManager::enterUserData() {
