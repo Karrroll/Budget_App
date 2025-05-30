@@ -10,7 +10,36 @@ void UserManager::registerNewUser() {
 }
 
 void UserManager::loginUser() {
+    int passwordAttemptsLeft = 3;
+    string enteredLogin = "", enteredPassword = "";
 
+    cout << "Enter login: ";
+    enteredLogin = Utils::readLine();
+
+    for (const auto &user : users) {
+        if (user.userName == enteredLogin) {
+            do {
+                cout << "Enter password: ";
+                enteredPassword = Utils::readLine();
+
+                if (user.userPassword == enteredPassword) {
+                    setLoggedUserId(user.id);
+                    cout << "Hello " << enteredLogin << endl;
+                    system("pause");
+                    return;
+                }
+
+                passwordAttemptsLeft--;
+                cout << "Invalid password. Attempts left: " << passwordAttemptsLeft << endl;
+            } while (passwordAttemptsLeft > 0);
+
+            cout << "Too many invalid attempts. Login failed." << endl;
+            system("pause");
+            return;
+        }
+    }
+    cout << "User '" << enteredLogin << "' not found." << endl;
+    system("pause");
 }
 
 User UserManager::enterUserData() {
