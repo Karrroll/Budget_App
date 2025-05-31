@@ -19,12 +19,12 @@ public:
 
     int getLastId() const { return lastId; };
     void setLastId(const int id);
-protected:
-    int lastId = 0;
-//    CMarkup xmlFile;
     string getFileName() const { return FILE_NAME; };
 //    string getRootNodeName() const { return ROOT_NODE_NAME; };
     string getChildNodeName() const { return CHILD_NODE_NAME; };
+protected:
+    int lastId = 0;
+//    CMarkup xmlFile;
     bool isFileExist();
     bool loadXmlFile(CMarkup &xmlFile);
     bool enterXmlRootNode(CMarkup &xmlFile);

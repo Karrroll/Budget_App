@@ -28,6 +28,10 @@ bool UserFile::addUserDataToFile(const User &user) {
     return true;
 }
 
+bool UserFile::changePasswordInFile(const int userId, const string &newPassword) {
+
+}
+
 vector <User> UserFile::loadUsersFromFile() {
     CMarkup xmlFile;
     vector <User> users;

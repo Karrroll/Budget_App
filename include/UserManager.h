@@ -16,7 +16,7 @@ private:
     vector <User> users;
 
     User enterUserData();
-
+    User *findUserById(const int id);
 public:
     UserManager(const string &userFileName) : userFile(userFileName) {
         loggedUserId = 0;
@@ -29,6 +29,7 @@ public:
     bool isUserLoggedIn(void);
     void registerNewUser();
     void loginUser();
+    void changeUserPassword();
     void logoutUser();
 };
 

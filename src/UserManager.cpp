@@ -46,6 +46,53 @@ void UserManager::loginUser() {
     system("pause");
 }
 
+User *UserManager::findUserById(const int id) {
+    for (auto &user : users) {
+        if (id == user.id)
+            return &user;
+    }
+    return nullptr;
+}
+
+void UserManager::changeUserPassword() {
+    int loggedUserId = getLoggedUserId();
+    User *user = findUserById(loggedUserId);
+
+    if (!user) {
+        cout << "Password was not changed. User not found in '" << userFile.getFileName() << "' file." << endl;
+        system("pause");
+        return;
+    }
+
+    string enteredNewPassword = "";
+    while (true) {
+        cout << "Enter new password: ";
+        enteredNewPassword = Utils::readLine();
+
+        if (enteredNewPassword == user->userPassword) {
+            cout << "New password cannot be the same as the current one." << endl;
+            cout << "Try again." << endl;
+            continue;
+        }
+
+        if (!Utils::validateInput(enteredNewPassword, FieldType::PASSWORD)) {
+            cout << "Try again." << endl;
+            continue;
+        }
+
+        if (!userFile.changePasswordInFile(user->id, enteredNewPassword)) {
+            cout << "Failed to change password in file" << endl;
+            system("pause");
+            return;
+        }
+
+        user->userPassword = enteredNewPassword;
+        cout << "Password changed successfully." << endl;
+        system("pause");
+        return;
+    }
+}
+
 void UserManager::logoutUser() {
     setLoggedUserId(0);
     cout << "Logout successful" << endl;
