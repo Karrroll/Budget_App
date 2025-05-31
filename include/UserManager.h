@@ -26,6 +26,7 @@ public:
     int getLoggedUserId() const { return loggedUserId; };
     void setLoggedUserId(const int id);
 
+    bool isUserLoggedIn(void);
     void registerNewUser();
     void loginUser();
 };

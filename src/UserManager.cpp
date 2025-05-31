@@ -5,6 +5,10 @@ void UserManager::setLoggedUserId(const int id) {
         this->loggedUserId = id;
 }
 
+bool UserManager::isUserLoggedIn() {
+    return (getLoggedUserId() > 0);
+}
+
 void UserManager::registerNewUser() {
     userFile.addUserDataToFile(enterUserData());
 }
