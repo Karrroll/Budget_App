@@ -1,7 +1,7 @@
 #include "UserManager.h"
 
 void UserManager::setLoggedUserId(const int id) {
-    if (id > 0)
+    if (id != this->loggedUserId && id > 0)
         this->loggedUserId = id;
 }
 
@@ -43,6 +43,12 @@ void UserManager::loginUser() {
         }
     }
     cout << "User '" << enteredLogin << "' not found." << endl;
+    system("pause");
+}
+
+void UserManager::logoutUser() {
+    setLoggedUserId(0);
+    cout << "Logout successful" << endl;
     system("pause");
 }
 

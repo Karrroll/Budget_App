@@ -29,6 +29,7 @@ public:
     bool isUserLoggedIn(void);
     void registerNewUser();
     void loginUser();
+    void logoutUser();
 };
 
 #endif // USERMANAGER_H
