@@ -9,7 +9,7 @@ int main() {
 
     while (true) {
         if (!budgetMainApp.isUserLoggedIn()) {
-            char userChoice = '2';
+            char userChoice = '3';
 //            userChoice =
             switch (userChoice) {
                 case '1':
@@ -17,8 +17,14 @@ int main() {
                     break;
                 case '2':
                     budgetMainApp.loginUser();
+                    break;
                 case '9':
-                default:;
+                    cout << "Thank you for using the application. See you next time!" << endl;
+                    system("pause");
+                    return 0;
+                default:
+                    cout << "Invalid choice. Please try again." << endl;
+                    break;
             }
         }
     }
