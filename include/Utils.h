@@ -12,6 +12,7 @@ using namespace std;
 
 class Utils {
 public:
+    static char readCharacter();
     static string readLine();
     static bool validateInput(const string &input, FieldType inputType);
     static bool inputEmpty(const string &input);

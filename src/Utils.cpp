@@ -1,5 +1,20 @@
 #include "Utils.h"
 
+char Utils::readCharacter() {
+    char character = '\0';
+
+    while (true) {
+        string input = Utils::readLine();
+
+        if (input.length() == 1) {
+            character = input[0];
+            break;
+        }
+        cout << "Please enter a single character. Try again." << endl;
+    }
+    return character;
+}
+
 string Utils::readLine() {
     string input = "";
 

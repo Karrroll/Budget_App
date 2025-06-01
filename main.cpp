@@ -9,8 +9,8 @@ int main() {
 
     while (true) {
         if (!budgetMainApp.isUserLoggedIn()) {
-            char userChoice = '3';
-//            userChoice =
+            char userChoice = Utils::readCharacter();
+
             switch (userChoice) {
                 case '1':
                     budgetMainApp.registerNewUser();
@@ -28,4 +28,5 @@ int main() {
             }
         }
     }
+    return 0;
 }
