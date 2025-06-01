@@ -10,7 +10,12 @@ bool UserManager::isUserLoggedIn() {
 }
 
 void UserManager::registerNewUser() {
-    userFile.addUserDataToFile(enterUserData());
+    User newUser = enterUserData();
+
+    bool isSuccess = userFile.addUserDataToFile(newUser);
+
+    cout << (isSuccess ? "User registered successfully." : "User registration fail.") << endl;
+    system("pause");
 }
 
 void UserManager::loginUser() {

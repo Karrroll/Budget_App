@@ -17,6 +17,8 @@ public:
     BudgetMainApp(const string &userFileName, const string &incomeFileName, const string &expenseFileName) : userManager(userFileName), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {};
 
     bool isUserLoggedIn();
+    void registerNewUser();
+    void loginUser();
 };
 
 #endif // BUDGETMAINAPP_H
