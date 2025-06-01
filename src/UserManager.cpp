@@ -81,7 +81,7 @@ void UserManager::changeUserPassword() {
         }
 
         if (!userFile.changePasswordInFile(user->id, enteredNewPassword)) {
-            cout << "Failed to change password in file" << endl;
+            cout << "Failed to change password in file." << endl;
             system("pause");
             return;
         }

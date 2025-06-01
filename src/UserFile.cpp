@@ -29,7 +29,43 @@ bool UserFile::addUserDataToFile(const User &user) {
 }
 
 bool UserFile::changePasswordInFile(const int userId, const string &newPassword) {
+    CMarkup xmlFile;
 
+    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+        return false;
+
+    while (xmlFile.FindElem(getChildNodeName())) {
+        xmlFile.IntoElem();
+
+        if (!xmlFile.FindElem("id")) {
+            xmlFile.OutOfElem();
+            cout << "<id> tag not found in node:" << endl;
+            cout << xmlFile.GetSubDoc() << endl;
+            cout << "Please check structure of '" << getFileName() << "' file." << endl;
+            system("pause");
+            return false;
+        }
+
+        int currentId = stoi(xmlFile.GetData());
+        if (currentId != userId) {
+            xmlFile.OutOfElem();
+            continue;
+        }
+
+        if (!xmlFile.FindElem("password")) {
+            xmlFile.OutOfElem();
+            cout << "<password> tag not found in node:" << endl;
+            cout << xmlFile.GetSubDoc() << endl;
+            cout << "Please check structure of '" << getFileName() << "' file." << endl;
+            system("pause");
+            return false;
+        }
+
+        xmlFile.SetData(newPassword);
+        xmlFile.OutOfElem();
+        return xmlFile.Save(getFileName());
+    }
+    return false;
 }
 
 vector <User> UserFile::loadUsersFromFile() {
