@@ -9,12 +9,14 @@ int main() {
 
     while (true) {
         if (!budgetMainApp.isUserLoggedIn()) {
-            char userChoice = '1';
+            char userChoice = '2';
 //            userChoice =
             switch (userChoice) {
                 case '1':
                     budgetMainApp.registerNewUser();
+                    break;
                 case '2':
+                    budgetMainApp.loginUser();
                 case '9':
                 default:;
             }
