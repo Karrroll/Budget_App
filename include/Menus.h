@@ -1,15 +1,17 @@
 #ifndef MENUS_H
 #define MENUS_H
 
+#include <iostream>
 
-class Menus
-{
-    public:
-        Menus();
+#include "Type.h"
 
-    protected:
+using namespace std;
 
-    private:
+class Menus {
+public:
+    static void showMainMenu();
+    static void showUserMenu();
+    static void showMenu(MenuType menuType);
 };
 
 #endif // MENUS_H

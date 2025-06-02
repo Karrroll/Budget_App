@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "BudgetMainApp.h"
+#include "Menus.h"
 
 using namespace std;
 
@@ -9,6 +10,8 @@ int main() {
 
     while (true) {
         if (!budgetMainApp.isUserLoggedIn()) {
+
+            Menus::showMenu(MenuType::MAIN_MENU);
             char userChoice = Utils::readCharacter();
 
             switch (userChoice) {
