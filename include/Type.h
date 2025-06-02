@@ -8,4 +8,9 @@ enum class FieldType {
     PASSWORD
 };
 
+enum class MenuType {
+    MAIN_MENU,
+    USER_MENU
+};
+
 #endif // TYPE_H_INCLUDED
