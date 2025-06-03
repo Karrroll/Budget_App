@@ -8,6 +8,11 @@ enum class FieldType {
     PASSWORD
 };
 
+enum class TransactionFieldType {
+    INCOME,
+    EXPENSE
+};
+
 enum class MenuType {
     MAIN_MENU,
     USER_MENU
