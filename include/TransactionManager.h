@@ -1,15 +1,16 @@
 #ifndef TRANSACTIONMANAGER_H
 #define TRANSACTIONMANAGER_H
 
+#include <iostream>
 
-class TransactionManager
-{
-    public:
-        TransactionManager();
+using namespace std;
 
-    protected:
+class TransactionManager {
+private:
+    const int LOGGED_USER_ID;
+public:
+    TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName) : LOGGED_USER_ID(id) {};
 
-    private:
 };
 
 #endif // TRANSACTIONMANAGER_H

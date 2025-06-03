@@ -4,14 +4,13 @@
 #include <File.h>
 
 
-class TransactionFile : public File
-{
-    public:
-        TransactionFile();
+class TransactionFile : public File {
+public:
+    TransactionFile();
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // TRANSACTIONFILE_H
