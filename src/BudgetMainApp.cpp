@@ -11,3 +11,11 @@ void BudgetMainApp::registerNewUser() {
 void BudgetMainApp::loginUser() {
     userManager.loginUser();
 }
+
+void BudgetMainApp::changeUserPassword() {
+    userManager.changeUserPassword();
+}
+
+void BudgetMainApp::logoutUser() {
+    userManager.logoutUser();
+}

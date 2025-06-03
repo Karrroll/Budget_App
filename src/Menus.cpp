@@ -3,7 +3,7 @@
 void Menus::showMainMenu() {
     cout << "1. Register User" << endl;
     cout << "2. Login User" << endl;
-    cout << "3. Exit Application" << endl;
+    cout << "9. Exit Application" << endl;
 }
 
 void Menus::showUserMenu() {

@@ -19,6 +19,8 @@ public:
     bool isUserLoggedIn();
     void registerNewUser();
     void loginUser();
+    void changeUserPassword();
+    void logoutUser();
 };
 
 #endif // BUDGETMAINAPP_H

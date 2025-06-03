@@ -1,7 +1,7 @@
 #include "UserManager.h"
 
 void UserManager::setLoggedUserId(const int id) {
-    if (id != this->loggedUserId && id > 0)
+    if (id != this->loggedUserId && id >= 0)
         this->loggedUserId = id;
 }
 
