@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    BudgetMainApp budgetMainApp("users.xml", "incomes.xml", "expense.xml");
+    BudgetMainApp budgetMainApp("users.xml", "incomes.xml", "expenses.xml");
 
     while (true) {
         if (!budgetMainApp.isUserLoggedIn()) {
@@ -38,10 +38,10 @@ int main() {
 
             switch (userChoice) {
                 case '1':
-    //                budgetMainApp.addIncome();
+     //               budgetMainApp.addIncome();
                     break;
                 case '2':
-    //               budgetMainApp.addExpense();
+     //              budgetMainApp.addExpense();
                     break;
                 case '3':
     //                budgetMainApp.showCurrentMonthBalance();

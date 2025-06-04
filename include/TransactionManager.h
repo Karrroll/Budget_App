@@ -25,6 +25,9 @@ public:
         delete incomeFile;
         delete expenseFile;
     }
+
+    void addIncome();
+    void addExpense();
 };
 
 #endif // TRANSACTIONMANAGER_H

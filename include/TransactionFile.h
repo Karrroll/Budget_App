@@ -8,6 +8,7 @@ class TransactionFile : public File {
 public:
     TransactionFile(const string &transactionFileName) : File(transactionFileName, "Transactions", "Transaction") {};
 
+    bool addTransactionToFile(const Transaction &transaction);
 protected:
 
 private:
