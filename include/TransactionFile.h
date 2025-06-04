@@ -2,11 +2,11 @@
 #define TRANSACTIONFILE_H
 
 #include <File.h>
-
+#include <Transaction.h>
 
 class TransactionFile : public File {
 public:
-    TransactionFile();
+    TransactionFile(const string &transactionFileName) : File(transactionFileName, "Transactions", "Transaction") {};
 
 protected:
 
