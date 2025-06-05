@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <regex>
 
 #include "Type.h"
 
@@ -14,6 +15,7 @@ class Utils {
 public:
     static char readCharacter();
     static string readLine();
+    static bool isValidAmount(const string &amount);
     static bool validateInput(const string &input, FieldType inputType);
     static bool inputEmpty(const string &input);
     static bool containsOnlyLetters(const string &input);

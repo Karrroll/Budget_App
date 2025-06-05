@@ -22,6 +22,12 @@ string Utils::readLine() {
     return input;
 }
 
+bool Utils::isValidAmount(const string &amount) {
+    regex pattern(R"(^\d+(\.\d{1,2})?$)");
+
+    return regex_match(amount, pattern);
+}
+
 bool Utils::validateInput(const string &input, FieldType type) {
     if (inputEmpty(input) || containsSpaces(input))
         return false;
@@ -33,6 +39,8 @@ bool Utils::validateInput(const string &input, FieldType type) {
             return correctLength(input, 3, 20);
         case(FieldType::PASSWORD):
             return correctLength(input, 6, 20);
+        case(FieldType::AMOUNT):
+            return isValidAmount(input);
         default:
             cout << "Unknown field type." << endl;
             return false;

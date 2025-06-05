@@ -5,10 +5,11 @@ enum class FieldType {
     FIRST_NAME,
     LAST_NAME,
     LOGIN,
-    PASSWORD
+    PASSWORD,
+    AMOUNT
 };
 
-enum class TransactionFieldType {
+enum class TransactionType {
     INCOME,
     EXPENSE
 };
