@@ -22,3 +22,11 @@ void BudgetMainApp::changeUserPassword() {
 void BudgetMainApp::logoutUser() {
     userManager.logoutUser();
 }
+
+void BudgetMainApp::addIncome() {
+    transactionManager->addIncome();
+}
+
+void BudgetMainApp::addExpense() {
+    transactionManager->addExpense();
+}

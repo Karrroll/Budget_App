@@ -1,5 +1,19 @@
 #include "TransactionManager.h"
 
+void TransactionManager::addTransaction(TransactionType type, vector <Transaction> &transactions, TransactionFile *transactionFile) {
+    Transaction newTransaction = enterTransactionData(type);
+
+    if (!transactionFile->addTransactionToFile(newTransaction)) {
+        cout << "Add transaction failed." << endl;
+        system("pause");
+        return;
+    }
+
+    transactions.push_back(newTransaction);
+    cout << "Transaction added successfully." << endl;
+    system("pause");
+}
+
 Transaction TransactionManager::enterTransactionData(TransactionType type) {
     string inputAmountString = "";
     double parsedAmount = 0.0;
@@ -38,9 +52,9 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
 }
 
 void TransactionManager::addIncome() {
-    Transaction newTransaction = enterTransactionData(TransactionType::INCOME);
+    addTransaction(TransactionType::INCOME, incomes, incomeFile);
 }
 
 void TransactionManager::addExpense() {
-    Transaction newTransaction = enterTransactionData(TransactionType::EXPENSE);
+    addTransaction(TransactionType::EXPENSE, expenses, expenseFile);
 }

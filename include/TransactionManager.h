@@ -20,6 +20,8 @@ private:
 
     TransactionFile *incomeFile;
     TransactionFile *expenseFile;
+
+    void addTransaction(TransactionType type, vector <Transaction> &transactions, TransactionFile *file);
 public:
     TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName) : LOGGED_USER_ID(id), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {
         incomeFile = new TransactionFile(INCOME_FILE_NAME);

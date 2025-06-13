@@ -29,6 +29,8 @@ public:
     void loginUser();
     void changeUserPassword();
     void logoutUser();
+    void addIncome();
+    void addExpense();
 };
 
 #endif // BUDGETMAINAPP_H
