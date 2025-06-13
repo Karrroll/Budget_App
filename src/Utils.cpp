@@ -23,9 +23,24 @@ string Utils::readLine() {
 }
 
 bool Utils::isValidAmount(const string &amount) {
-    regex pattern(R"(^\d+(\.\d{1,2})?$)");
+    regex pattern(R"(^\d+([.,]\d{1,2})?$)");
 
     return regex_match(amount, pattern);
+}
+
+double Utils::parseAmount(const string &input) {
+    string temp = input;
+    replace(temp.begin(), temp.end(), ',', '.');
+
+    double amount = stod(temp);
+
+    return amount;
+}
+
+string Utils::formatAmount(const double &amount) {
+    ostringstream oss;
+    oss << fixed << setprecision(2) << amount;
+    return oss.str();
 }
 
 bool Utils::validateInput(const string &input, FieldType type) {
@@ -39,8 +54,6 @@ bool Utils::validateInput(const string &input, FieldType type) {
             return correctLength(input, 3, 20);
         case(FieldType::PASSWORD):
             return correctLength(input, 6, 20);
-        case(FieldType::AMOUNT):
-            return isValidAmount(input);
         default:
             cout << "Unknown field type." << endl;
             return false;

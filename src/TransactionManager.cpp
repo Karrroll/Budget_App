@@ -1,13 +1,13 @@
 #include "TransactionManager.h"
 
 Transaction TransactionManager::enterTransactionData(TransactionType type) {
-    string amount = "";
+    string inputAmountString = "";
+    double parsedAmount = 0.0;
     Transaction transaction;
 
     if (type == TransactionType::INCOME)
         transaction.transactionId = incomeFile->getLastId() + 1;
-
-    if (type == TransactionType::EXPENSE)
+    else if (type == TransactionType::EXPENSE)
         transaction.transactionId = expenseFile->getLastId() + 1;
 
     transaction.userId = getLoggedUserId();
@@ -16,36 +16,31 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
     while (Utils::inputEmpty(transaction.item = Utils::readLine())) {
         cout << "Try again." << endl;
     }
-    cout << "Amount: " ;
+    cout << "Amount: ";
     while (true) {
-        amount = Utils::readLine();
-        replace(amount.begin(), amount.end(), ',', '.');
+        inputAmountString = Utils::readLine();
+        if (Utils::isValidAmount(inputAmountString)) {
+            parsedAmount = Utils::parseAmount(inputAmountString);
 
-        if (Utils::validateInput(amount, FieldType::AMOUNT))
+            if (parsedAmount == 0.0) {
+                cout << "Amount must be greater than 0. Try again." << endl;
+                continue;
+            }
+
+            transaction.amount = parsedAmount;
             break;
-
+        }
+        cout << "Invalid amount format (only digits and up to two decimal places)." << endl;
         cout << "Try again." << endl;
     }
-    transaction.amount = stod(amount);          //set precision
 
     return transaction;
 }
 
 void TransactionManager::addIncome() {
     Transaction newTransaction = enterTransactionData(TransactionType::INCOME);
-
-    if (!incomeFile->addTransactionToFile(newTransaction)) {
-        cout << "Add transaction failed." << endl;
-        system("pause");
-        return;
-    }
-
-    incomes.push_back(newTransaction);
-    cout << "Transaction added successfully." << endl;
-    system("pause");
-
 }
 
 void TransactionManager::addExpense() {
-//    expenseFile->addTransactionToFile();
+    Transaction newTransaction = enterTransactionData(TransactionType::EXPENSE);
 }

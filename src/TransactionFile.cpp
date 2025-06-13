@@ -12,7 +12,7 @@ bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
         xmlFile.AddElem("userId", to_string(transaction.userId));
         xmlFile.AddElem("date", to_string(transaction.date));
         xmlFile.AddElem("item", transaction.item);
-        xmlFile.AddElem("amount", to_string(transaction.amount));
+        xmlFile.AddElem("amount", Utils::formatAmount(transaction.amount));
 
         xmlFile.OutOfElem();
     } else {

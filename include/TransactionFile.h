@@ -3,6 +3,7 @@
 
 #include <File.h>
 #include <Transaction.h>
+#include "Utils.h"
 
 class TransactionFile : public File {
 public:

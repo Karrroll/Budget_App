@@ -6,7 +6,6 @@ enum class FieldType {
     LAST_NAME,
     LOGIN,
     PASSWORD,
-    AMOUNT
 };
 
 enum class TransactionType {

@@ -6,6 +6,9 @@
 #include <algorithm>
 #include <cctype>
 #include <regex>
+#include <cmath>
+#include <sstream>
+#include <iomanip>
 
 #include "Type.h"
 
@@ -16,6 +19,8 @@ public:
     static char readCharacter();
     static string readLine();
     static bool isValidAmount(const string &amount);
+    static double parseAmount(const string &input);
+    static string formatAmount(const double &amount);
     static bool validateInput(const string &input, FieldType inputType);
     static bool inputEmpty(const string &input);
     static bool containsOnlyLetters(const string &input);
