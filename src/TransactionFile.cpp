@@ -28,3 +28,10 @@ bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
     return true;
 }
 
+vector <Transaction> TransactionFile::loadIncomesFromFile() {
+
+}
+
+vector <Transaction> TransactionFile::loadExpensesFromFile() {
+
+}
