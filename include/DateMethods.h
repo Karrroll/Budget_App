@@ -1,15 +1,19 @@
 #ifndef DATEMETHODS_H
 #define DATEMETHODS_H
 
+#include <iostream>
+#include <sstream>
+#include <ctime>
+#include <iomanip>
 
-class DateMethods
-{
-    public:
-        DateMethods();
+using namespace std;
 
-    protected:
+class DateMethods {
+public:
+    string getTodayDate();
+protected:
 
-    private:
+private:
 };
 
 #endif // DATEMETHODS_H
