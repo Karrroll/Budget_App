@@ -1,19 +1,5 @@
 #include "TransactionManager.h"
 
-void TransactionManager::addTransaction(TransactionType type, vector <Transaction> &transactions, TransactionFile *transactionFile) {
-    Transaction newTransaction = enterTransactionData(type);
-
-    if (!transactionFile->addTransactionToFile(newTransaction)) {
-        cout << "Add transaction failed." << endl;
-        system("pause");
-        return;
-    }
-
-    transactions.push_back(newTransaction);
-    cout << "Transaction added successfully." << endl;
-    system("pause");
-}
-
 Transaction TransactionManager::enterTransactionData(TransactionType type) {
     string inputAmountString = "";
     double parsedAmount = 0.0;
@@ -52,9 +38,27 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
 }
 
 void TransactionManager::addIncome() {
-    addTransaction(TransactionType::INCOME, incomes, incomeFile);
+    Transaction newIncomeTransaction = enterTransactionData(TransactionType::INCOME);
+
+    if (!incomeFile->addTransactionToFile(newIncomeTransaction)) {
+        cout << "Failed to add income transaction." << endl;
+    } else {
+        incomes.push_back(newIncomeTransaction);
+        cout << "Income transaction added successfully." << endl;
+    }
+
+    system("pause");
 }
 
 void TransactionManager::addExpense() {
-    addTransaction(TransactionType::EXPENSE, expenses, expenseFile);
+    Transaction newExpenseTransaction = enterTransactionData(TransactionType::EXPENSE);
+
+    if (!expenseFile->addTransactionToFile(newExpenseTransaction)) {
+        cout << "Failed to add expense transaction." << endl;
+    } else {
+        expenses.push_back(newExpenseTransaction);
+        cout << "Expense transaction added successfully." << endl;
+    }
+
+    system("pause");
 }
