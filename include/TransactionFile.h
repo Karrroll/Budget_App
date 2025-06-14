@@ -10,8 +10,7 @@ public:
     TransactionFile(const string &transactionFileName) : File(transactionFileName, "Transactions", "Transaction") {};
 
     bool addTransactionToFile(const Transaction &transaction);
-    vector <Transaction> loadIncomesFromFile();
-    vector <Transaction> loadExpensesFromFile();
+    vector <Transaction> loadUserTransactionsFromFile(const int userId);
 protected:
 
 private:
