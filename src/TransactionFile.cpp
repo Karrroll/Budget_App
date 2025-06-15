@@ -62,7 +62,7 @@ vector <Transaction> TransactionFile::loadUserTransactionsFromFile(const int use
             if (stoi(userIdString) == userId) {
                 transaction.transactionId = stoi(transactionIdString);
                 transaction.userId = stoi(userIdString);
-                transaction.date = stoi(dateString);
+                transaction.date = DateMethods::convertStringDateToInt(dateString);
                 transaction.amount = stod(amountString);
 
                 transactions.push_back(transaction);

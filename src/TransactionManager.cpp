@@ -11,11 +11,17 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
         transaction.transactionId = expenseFile->getLastId() + 1;
 
     transaction.userId = getLoggedUserId();
-//    transaction.date = getDate();
-    cout << "Item: " ;
+
+
+    while (transaction.date == 0) {
+        transaction.date = DateMethods::convertStringDateToInt(DateMethods::selectDate());
+    }
+
+    cout << "Item: ";
     while (Utils::inputEmpty(transaction.item = Utils::readLine())) {
         cout << "Try again." << endl;
     }
+
     cout << "Amount: ";
     while (true) {
         inputAmountString = Utils::readLine();

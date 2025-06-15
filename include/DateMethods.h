@@ -8,17 +8,22 @@
 #include <cctype>
 #include <conio.h>
 
+#include "Utils.h"
+
 using namespace std;
 
 class DateMethods {
 public:
-    bool validateDate(const string &date);
-    bool isYearLeap(const int year);
-    bool isDataFormatValid(const string &date);
-    bool isDateRangeValid(const string &date);
-    string getTodayDate();
-    string getUserSelectedDate();
-    int convertStringDateToInt(const string &dateStr);
+    static string selectDate();
+    static bool validateDate(const string &date);
+    static bool isYearLeap(const int year);
+    static bool isDataFormatValid(const string &date);
+    static bool isDateRangeValid(const string &date);
+    static string getTodayDate();
+    static string getUserSelectedDate();
+    static bool confirmDate(const string &date);
+    static string showDateWithDashes(const string &date);
+    static int convertStringDateToInt(const string &dateStr);
 protected:
 
 private:

@@ -6,6 +6,7 @@
 
 #include "TransactionFile.h"
 #include "Utils.h"
+#include "DateMethods.h"
 
 using namespace std;
 

@@ -4,6 +4,7 @@
 #include "File.h"
 #include "Transaction.h"
 #include "Utils.h"
+#include "DateMethods.h"
 
 class TransactionFile : public File {
 public:

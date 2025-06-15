@@ -1,5 +1,15 @@
 #include "DateMethods.h"
 
+string DateMethods::selectDate() {
+    cout << "Press ENTER to use today's date or any other button to custom choose date: " << endl;
+    char choose = getch();
+
+    if (choose == '\r')
+        return getTodayDate();
+    else
+        return getUserSelectedDate();
+}
+
 bool DateMethods::validateDate(const string &date) {
     return (isDataFormatValid(date) && isDateRangeValid(date));
 }
@@ -27,11 +37,11 @@ bool DateMethods::isDateRangeValid(const string &date) {
 
     int year = stoi(date.substr(0,4));
     int month = stoi(date.substr(4,2));
-    int day = stoi(date.substr(6));
+    int day = stoi(date.substr(6,2));
     string currentDate = getTodayDate();
 
     if (year < MIN_YEAR || date > currentDate) {
-        cout << "Invalid date. Date must be between 2000-01-01 and today. Try again." << endl;
+        cout << "Invalid date. Date must be between 2000-01-01 and " << showDateWithDashes(currentDate) << ". Try again." << endl;
         system("pause");
         return false;
     }
@@ -80,8 +90,6 @@ string DateMethods::getUserSelectedDate() {
     string userDate = dateTemplate;
     string userDateStr = "";
 
-    cout << "Enter date (" << dateTemplate <<  "): " << endl;
-
     size_t i = 0;
     while (i < userDate.length()) {
         if (userDate[i] == '-') {
@@ -89,10 +97,10 @@ string DateMethods::getUserSelectedDate() {
             continue;
         }
 
-        cout << "\r" << userDate << flush;
+        cout << "\rEnter date: " << userDate << flush;
         char input = getch();
 
-        if (input == 8 && i > 0) {
+        if (input == '\b' && i > 0) {
             do {
                 i--;
             } while (i > 0 && userDate[i] == '-');
@@ -109,13 +117,26 @@ string DateMethods::getUserSelectedDate() {
         userDateStr += input;
         i++;
     }
-    cout<<endl;
 
-    if (!validateDate(userDateStr))
-        userDateStr.clear();
+    cout << endl;
+    if (!validateDate(userDateStr) || !confirmDate(userDate))
+        userDateStr = "0";
 
-    system("cls");
     return userDateStr;
+}
+
+bool DateMethods::confirmDate(const string &date) {
+    cout << "Press (y) to confirm or (n) to reject date: " << date << endl;
+    char userChoice = Utils::readCharacter();
+
+    if (userChoice == 'y' || userChoice == 'Y')
+        return true;
+
+    return false;
+}
+
+string DateMethods::showDateWithDashes(const string &date) {
+    return date.substr(0, 4) + "-" + date.substr(4, 2) + "-" + date.substr(6, 2);
 }
 
 int DateMethods::convertStringDateToInt(const string &dateStr) {
