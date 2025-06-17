@@ -12,6 +12,7 @@ public:
 
     bool addTransactionToFile(const Transaction &transaction);
     vector <Transaction> loadUserTransactionsFromFile(const int userId);
+    void sortTransactionsByDate(vector <Transaction> &transactions);
 protected:
 
 private:

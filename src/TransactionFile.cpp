@@ -80,3 +80,9 @@ vector <Transaction> TransactionFile::loadUserTransactionsFromFile(const int use
 
     return transactions;
 }
+
+void TransactionFile::sortTransactionsByDate(vector <Transaction> &transactions) {
+    sort(transactions.begin(), transactions.end(), [] (const Transaction &a, const Transaction &b) {
+        return a.date < b.date;
+    });
+}
