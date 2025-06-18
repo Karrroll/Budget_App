@@ -31,6 +31,9 @@ public:
     void logoutUser();
     void addIncome();
     void addExpense();
+    void showCurrentMonthBalance();
+    void showPreviousMonthBalance();
+    void showCustomPeriodBalance();
 };
 
 #endif // BUDGETMAINAPP_H

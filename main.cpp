@@ -44,13 +44,13 @@ int main() {
                     budgetMainApp.addExpense();
                     break;
                 case '3':
-    //                budgetMainApp.showCurrentMonthBalance();
+                    budgetMainApp.showCurrentMonthBalance();
                     break;
                 case '4':
-    //                budgetMainApp.showPreviousMonthBalance();
+                    budgetMainApp.showPreviousMonthBalance();
                     break;
                 case '5':
-    //                budgetMainApp.showCustomPeriodBalance();
+                    budgetMainApp.showCustomPeriodBalance();
                     break;
                 case '6':
                     budgetMainApp.changeUserPassword();

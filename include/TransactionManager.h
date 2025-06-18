@@ -40,6 +40,11 @@ public:
     Transaction enterTransactionData(TransactionType type);
     void addIncome();
     void addExpense();
+    void showCurrentMonthBalance();
+    void showPreviousMonthBalance();
+    void showCustomPeriodBalance();
+    void sortTransactionsByDate(vector <Transaction> &transactions);
+    void showSummaryBalance(const double income, const double expense);
 };
 
 #endif // TRANSACTIONMANAGER_H

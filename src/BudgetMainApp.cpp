@@ -30,3 +30,14 @@ void BudgetMainApp::addIncome() {
 void BudgetMainApp::addExpense() {
     transactionManager->addExpense();
 }
+void BudgetMainApp::showCurrentMonthBalance() {
+    transactionManager->showCurrentMonthBalance();
+}
+
+void BudgetMainApp::showPreviousMonthBalance() {
+    transactionManager->showPreviousMonthBalance();
+}
+
+void BudgetMainApp::showCustomPeriodBalance() {
+    transactionManager->showCustomPeriodBalance();
+}
