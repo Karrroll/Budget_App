@@ -15,6 +15,7 @@ using namespace std;
 class DateMethods {
 public:
     static string selectDate();
+    static int getDaysInMonth(const int year, const int month);
     static bool validateDate(const string &date);
     static bool isYearLeap(const int year);
     static bool isDataFormatValid(const string &date);
@@ -22,7 +23,7 @@ public:
     static string getTodayDate();
     static string getUserSelectedDate();
     static bool confirmDate(const string &date);
-    static string showDateWithDashes(const string &date);
+    static string dateWithDashes(const string &date);
     static int convertStringDateToInt(const string &dateStr);
 protected:
 

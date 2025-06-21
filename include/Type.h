@@ -5,7 +5,7 @@ enum class FieldType {
     FIRST_NAME,
     LAST_NAME,
     LOGIN,
-    PASSWORD,
+    PASSWORD
 };
 
 enum class TransactionType {
@@ -16,6 +16,12 @@ enum class TransactionType {
 enum class MenuType {
     MAIN_MENU,
     USER_MENU
+};
+
+enum class BalanceType {
+    CURRENT_MONTH,
+    PREVIOUS_MONTH,
+    CUSTOM_PERIOD
 };
 
 #endif // TYPE_H_INCLUDED

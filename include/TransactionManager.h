@@ -40,11 +40,16 @@ public:
     Transaction enterTransactionData(TransactionType type);
     void addIncome();
     void addExpense();
+    void showBalance(const int startDate, const int endDate);
     void showCurrentMonthBalance();
     void showPreviousMonthBalance();
     void showCustomPeriodBalance();
+    pair <int, int> getStartAndEndDates(BalanceType balanceType);
+    vector <Transaction> filteredTransactionsByDate(const vector <Transaction> &transactions, const int startDate, const int endDate);
     void sortTransactionsByDate(vector <Transaction> &transactions);
     void showSummaryBalance(const double income, const double expense);
+    void showTransactions(const vector <Transaction> &transactions, TransactionType type);
+    double calculateTotalTransactionsAmount(const vector <Transaction> &transactions);
 };
 
 #endif // TRANSACTIONMANAGER_H
