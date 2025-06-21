@@ -18,11 +18,10 @@ int main() {
                 case '1': budgetMainApp.registerNewUser();  break;
                 case '2': budgetMainApp.loginUser();        break;
                 case '9':
-                    cout << "Thank you for using the application. See you next time!" << endl;
-                    system("pause");
+                    cout << "\nThank you for using the application. See you next time!" << endl;
                     return 0;
                 default:
-                    cout << "Invalid choice. Please try again." << endl;
+                    cout << "\nInvalid choice. Please try again." << endl;
                     system("pause");
                     break;
             }
@@ -41,7 +40,7 @@ int main() {
                 case '6': budgetMainApp.changeUserPassword();       break;
                 case '7': budgetMainApp.logoutUser();               break;
                 default:
-                    cout << "Invalid choice. Please try again." << endl;
+                    cout << "\nInvalid choice. Please try again." << endl;
                     system("pause");
                     break;
             }

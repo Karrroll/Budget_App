@@ -21,7 +21,7 @@ void Menus::showMenu(MenuType menuType) {
 
     switch (menuType) {
         case (MenuType::MAIN_MENU):
-            cout << "\t<<< MAIN MENU >>>\n" << endl;
+            cout << "\t<<< MAIN MENU >>>\n\n";
             showMainMenu();
             break;
         case (MenuType::USER_MENU):

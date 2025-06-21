@@ -10,7 +10,7 @@ char Utils::readCharacter() {
             character = input[0];
             break;
         }
-        cout << "Please enter a single character. Try again." << endl;
+        cout << "\nPlease enter a single character. Try again:\t";
     }
     return character;
 }
