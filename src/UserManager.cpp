@@ -48,21 +48,21 @@ void UserManager::loginUser() {
 
                 if (user.userPassword == enteredPassword) {
                     setLoggedUserId(user.id);
-                    cout << "Hello " << enteredLogin << endl;
+                    cout << "\nHello " << enteredLogin << endl;
                     system("pause");
                     return;
                 }
 
-                passwordAttemptsLeft--;
-                cout << "Invalid password. Attempts left: " << passwordAttemptsLeft << endl;
+                if (--passwordAttemptsLeft != 0)
+                    cout << "\nInvalid password. Attempts left: " << passwordAttemptsLeft << endl;
             } while (passwordAttemptsLeft > 0);
 
-            cout << "Too many invalid attempts. Login failed." << endl;
+            cout << "\nToo many invalid attempts. Sign in failed." << endl;
             system("pause");
             return;
         }
     }
-    cout << "User '" << enteredLogin << "' not found." << endl;
+    cout << "\nUser '" << enteredLogin << "' not found." << endl;
     system("pause");
 }
 
