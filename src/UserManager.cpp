@@ -105,7 +105,7 @@ void UserManager::changeUserPassword() {
 
 void UserManager::logoutUser() {
     setLoggedUserId(0);
-    cout << "Logout successful" << endl;
+    cout << "\nLogout successful." << endl;
     system("pause");
 }
 

@@ -70,13 +70,15 @@ void TransactionManager::addExpense() {
 }
 
 void TransactionManager::showBalance(const int startDate, const int endDate) {
-    cout << "INCOME TRANSACTIONS" << endl << endl;
+    system("cls");
+    cout << "\t<<< BALANCE OVERVIEW >>>" << endl << endl;
+    cout << "INCOME TRANSACTIONS:" << endl;
 
     vector <Transaction> filteredIncomeTransactions = filteredTransactionsByDate(incomes, startDate, endDate);
     sortTransactionsByDate(filteredIncomeTransactions);
     showTransactions(filteredIncomeTransactions, TransactionType::INCOME);
 
-    cout << "EXPENSE TRANSACTIONS" << endl << endl;
+    cout << "EXPENSE TRANSACTIONS:" << endl;
 
     vector <Transaction> filteredExpenseTransactions = filteredTransactionsByDate(expenses, startDate, endDate);
     sortTransactionsByDate(filteredExpenseTransactions);
@@ -88,7 +90,6 @@ void TransactionManager::showBalance(const int startDate, const int endDate) {
 }
 
 void TransactionManager::showCurrentMonthBalance() {
-    system("cls");
     pair <int, int> dates = getStartAndEndDates(BalanceType::CURRENT_MONTH);
     int startDate = dates.first;
     int endDate = dates.second;
@@ -100,7 +101,6 @@ void TransactionManager::showCurrentMonthBalance() {
 }
 
 void TransactionManager::showPreviousMonthBalance() {
-    system("cls");
     pair <int, int> dates = getStartAndEndDates(BalanceType::PREVIOUS_MONTH);
     int startDate = dates.first;
     int endDate = dates.second;
@@ -111,7 +111,6 @@ void TransactionManager::showPreviousMonthBalance() {
 }
 
 void TransactionManager::showCustomPeriodBalance() {
-    system("cls");
     pair <int, int> dates = getStartAndEndDates(BalanceType::CUSTOM_PERIOD);
     int startDate = dates.first;
     int endDate = dates.second;
@@ -215,107 +214,3 @@ pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType)
         return {startDate, endDate};
     }
 }
-
-
-
-//void TransactionManager::getBalanceStartDate(int &startDate, int &endDate) {
-//    const int FIRST_DAY_OF_MONTH = 1;
-//
-//    int currentYearMonthDate = stoi(DateMethods::getTodayDate()) / 100;
-//    int currentMonth = currentYearMonthDate % 100;
-//    int currentYear = currentYearMonthDate / 100;
-//
-//    if () {
-//        int lastDayOfMonth = DateMethods::getDaysInMonth(currentYear, CurrentMonth);
-//
-//        startDate = (currentYear *100 + currentMonth) * 100 + FIRST_DAY_OF_MONTH;
-//        endDate = (currentYear *100 + currentMonth) * 100 + lastDayOfMonth;
-//    } else if () {
-//        int previousYear = 0;
-//        int previousMonth = 0;
-//
-//        if (currentMonth == 1) {
-//            previousMonth = 12;
-//            previousYear = currentYear - 1;
-//        } else {
-//            previousMonth = currentMonth - 1;
-//            previousYear = currentYear;
-//        }
-//        int lastDayOfMonth = DateMethods::getDaysInMonth(previousYear, previousMonth);
-//
-//        startDate = (previousYear *100 + previousMonth) * 100 + FIRST_DAY_OF_MONTH;
-//        endDate = (previousYear *100 + previousMonth) * 100 + lastDayOfMonth;
-//    } else if () {
-//        cout << "From: " << endl;
-//
-//        do {
-//            startDate = stoi(DateMethods::getUserSelectedDate());
-//        } while (startDate == 0);
-//
-//        cout << "To: " << endl;
-//        do {
-//            endDate = stoi(DateMethods::getUserSelectedDate());                         // i od dzisiejszej daty czy juz to jest?
-//            if (endDate < startDate && endDate != 0) {
-//                cout << "Date cannot be earlier than start date. Try again." << endl;
-//                endDate = 0;
-//            }
-//        } while (endDate == 0);
-//    }
-//}
-//
-//const int FIRST_DAY_OF_MONTH = 1;
-//const int LAST_POSSIBLE_DAY_IN_MONTH = 31;
-//
-//int currentYearMonthDate = (stoi(DateMethods::getTodayDate()) / 100);
-//int startDate = currentYearMonthDate * 100 + FIRST_DAY_OF_MONTH;
-//int endDate = currentYearMonthDate * 100 + LAST_POSSIBLE_DAY_IN_MONTH;
-//
-////    int currentYearMonthTag = stoi(DateMethods::getTodayDate()) / 100;
-//
-//    vector <Transaction> filteredIncomeTransactions;
-//    double totalIncomeAmount = 0.0;
-//
-//    vector <Transaction> filteredExpenseTransactions;
-//    double totalExpenseAmount = 0.0;
-//
-//    cout << "INCOME TRANSACTIONS" << endl << endl;
-//
-//    for (const auto &transaction: incomes) {
-//        if (transaction.date >= startDate && transaction.date <= endDate)
-//            filteredIncomeTransactions.push_back(transaction);
-//    }
-//
-//
-//
-//    int currentYearMonthDate = stoi(DateMethods::getTodayDate()) / 100;
-//
-//    int year = currentYearMonthDate / 100;
-//    int month = currentYearMonthDate % 100;
-//
-//    if (month == 1) {
-//        year -= 1;
-//        month = 12;
-//    } else {
-//        month -= 1;
-//    }
-//
-//    int previousYearMonthTag = (year * 100) + month;
-//
-//
-//
-//    int startDate = 0;
-//    int endDate = 0;
-//
-//    cout << "Start date" << endl;
-//    do {
-//        startDate = stoi(DateMethods::getUserSelectedDate());
-//    } while (startDate == 0);
-//
-//    cout << "End date" << endl;
-//    do {
-//        endDate = stoi(DateMethods::getUserSelectedDate());
-//        if (endDate < startDate && endDate != 0) {
-//            cout << "Date cannot be earlier than start date. Try again." << endl;
-//            endDate = 0;
-//        }
-//    } while (endDate == 0);

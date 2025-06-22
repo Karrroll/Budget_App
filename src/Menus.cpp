@@ -21,17 +21,17 @@ void Menus::showMenu(MenuType menuType) {
 
     switch (menuType) {
         case (MenuType::MAIN_MENU):
-            cout << "\t<<< MAIN MENU >>>\n\n";
+            cout << "\t<<< MAIN MENU >>>" << endl << endl;
             showMainMenu();
             break;
         case (MenuType::USER_MENU):
-            cout << "\t<<< USER MENU >>>\n" << endl;
+            cout << "\t<<< USER MENU >>>" << endl << endl;
             showUserMenu();
             break;
         default:
-            cout << "Unknown menu type.\n" << endl;
+            cout << "Unknown menu type." << endl;
             system ("pause");
-            return;
+            exit(0);
     }
     cout << "\nEnter your choice:\t";
 }
