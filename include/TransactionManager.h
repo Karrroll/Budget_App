@@ -38,8 +38,9 @@ public:
     int getLoggedUserId() const { return LOGGED_USER_ID; };
 
     Transaction enterTransactionData(TransactionType type);
-    void addIncome();
-    void addExpense();
+    void addTransaction(TransactionType type);
+//    void addIncome();
+//    void addExpense();
     void showBalance(const int startDate, const int endDate);
     void showCurrentMonthBalance();
     void showPreviousMonthBalance();

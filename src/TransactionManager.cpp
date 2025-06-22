@@ -12,7 +12,6 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
 
     transaction.userId = getLoggedUserId();
 
-
     while (transaction.date == 0) {
         transaction.date = DateMethods::convertStringDateToInt(DateMethods::selectDate());
     }
@@ -43,31 +42,59 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
     return transaction;
 }
 
-void TransactionManager::addIncome() {
-    Transaction newIncomeTransaction = enterTransactionData(TransactionType::INCOME);
+void TransactionManager::addTransaction(TransactionType type) {
+    bool success = false;
+    Transaction newTransaction = enterTransactionData(type);
 
-    if (!incomeFile->addTransactionToFile(newIncomeTransaction)) {
-        cout << "Failed to add income transaction." << endl;
-    } else {
-        incomes.push_back(newIncomeTransaction);
-        cout << "Income transaction added successfully." << endl;
+    if (type == TransactionType::INCOME)
+        success = incomeFile->addTransactionToFile(newTransaction);
+    else if (type == TransactionType::EXPENSE)
+        success = expenseFile->addTransactionToFile(newTransaction);
+    else {
+        cout << "Unknown transaction type." << endl;
+        system ("pause");
+        return;
     }
 
-    system("pause");
-}
-
-void TransactionManager::addExpense() {
-    Transaction newExpenseTransaction = enterTransactionData(TransactionType::EXPENSE);
-
-    if (!expenseFile->addTransactionToFile(newExpenseTransaction)) {
-        cout << "Failed to add expense transaction." << endl;
+    if (type == TransactionType::INCOME && success) {
+        incomes.push_back(newTransaction);
+    } else if (type == TransactionType::EXPENSE && success) {
+        expenses.push_back(newTransaction);
     } else {
-        expenses.push_back(newExpenseTransaction);
-        cout << "Expense transaction added successfully." << endl;
+        cout << "Transaction add failed." << endl;
+        system("pause");
+        return;
     }
 
+    cout << "Transaction added successfully." << endl;
     system("pause");
 }
+//merge income and expense transaction logic into single method
+//void TransactionManager::addIncome() {
+//    Transaction newIncomeTransaction = enterTransactionData(TransactionType::INCOME);
+//
+//    if (!incomeFile->addTransactionToFile(newIncomeTransaction)) {
+//        cout << "Failed to add income transaction." << endl;
+//    } else {
+//        incomes.push_back(newIncomeTransaction);
+//        cout << "Income transaction added successfully." << endl;
+//    }
+//
+//    system("pause");
+//}
+//
+//void TransactionManager::addExpense() {
+//    Transaction newExpenseTransaction = enterTransactionData(TransactionType::EXPENSE);
+//
+//    if (!expenseFile->addTransactionToFile(newExpenseTransaction)) {
+//        cout << "Failed to add expense transaction." << endl;
+//    } else {
+//        expenses.push_back(newExpenseTransaction);
+//        cout << "Expense transaction added successfully." << endl;
+//    }
+//
+//    system("pause");
+//}
 
 void TransactionManager::showBalance(const int startDate, const int endDate) {
     system("cls");
