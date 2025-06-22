@@ -62,7 +62,7 @@ bool Utils::validateInput(const string &input, FieldType type) {
 
 bool Utils::inputEmpty(const string &input) {
     if (input.empty()) {
-        cout << "Field cannot be empty." << endl;
+        cout << "Field cannot be empty." << endl << endl;
         return true;
     }
     return false;
@@ -71,7 +71,7 @@ bool Utils::inputEmpty(const string &input) {
 bool Utils::containsOnlyLetters(const string &input) {
     for (char character : input) {
         if (!isalpha(static_cast<unsigned char>(character))) {
-            cout << "Field cannot contain '" << character << "' character." <<  endl;
+            cout << "Field cannot contain '" << character << "' character." <<  endl << endl;
             return false;
         }
     }
@@ -81,7 +81,7 @@ bool Utils::containsOnlyLetters(const string &input) {
 bool Utils::containsSpaces(const string &input) {
     for (char character : input) {
         if (character == ' ') {
-            cout << "Field cannot contain spaces." << endl;
+            cout << "Field cannot contain spaces." << endl << endl;
             return true;
         }
     }
@@ -91,10 +91,10 @@ bool Utils::containsSpaces(const string &input) {
 bool Utils::correctLength(const string &input, const int minLength, const int maxLength) {
 
     if (input.length() < size_t(minLength)) {
-        cout << "Field is too short. Minimum length is " << minLength << " characters." << endl;
+        cout << "Field is too short. Minimum length is " << minLength << " characters." << endl << endl;
         return false;
     } else if (input.length() > size_t(maxLength)) {
-        cout << "Field is too long. Maximum length is " << maxLength << " characters." << endl;
+        cout << "Field is too long. Maximum length is " << maxLength << " characters." << endl << endl;
         return false;
     } else {
         return true;

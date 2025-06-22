@@ -13,13 +13,13 @@ void UserManager::registerNewUser() {
     User newUser = enterUserData();
 
     if (!userFile.addUserDataToFile(newUser)) {
-        cout << "User registration fail." << endl;
+        cout << "\nUser registration fail." << endl;
         system("pause");
         return;
     }
 
     users.push_back(newUser);
-    cout << "User registered successfully." << endl;
+    cout << "\nUser registered successfully." << endl;
     system("pause");
 }
 
@@ -113,27 +113,24 @@ User UserManager::enterUserData() {
     User user;
 
     user.id = userFile.getLastId() + 1;
-    cout << "First Name: " ;
-    while (!Utils::validateInput(user.firstName = Utils::readLine(), FieldType::FIRST_NAME)) {
-        cout << "Try again." << endl;
-    }
+    do {
+        cout << left << setw(13) << "First Name:";
+    } while (!Utils::validateInput(user.firstName = Utils::readLine(), FieldType::FIRST_NAME));
+
+    do {
+        cout << left << setw(13) << "Last Name:";
+    } while (!Utils::validateInput(user.lastName = Utils::readLine(), FieldType::LAST_NAME));
+
+    do {
+        cout << left << setw(13) << "Login:";
+    } while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN));
+
+    do {
+        cout << left << setw(13) << "Password:";
+    } while (!Utils::validateInput(user.userPassword = Utils::readLine(), FieldType::PASSWORD));
+
     Utils::upperFirstLowerRest(user.firstName);
-
-    cout << "Last Name: ";
-    while (!Utils::validateInput(user.lastName = Utils::readLine(), FieldType::LAST_NAME)) {
-        cout << "Try again." << endl;
-    }
     Utils::upperFirstLowerRest(user.lastName);
-
-    cout << "Login: ";
-    while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN)) {
-        cout << "Try again." << endl;
-    }
-
-    cout << "Password: ";
-    while (!Utils::validateInput(user.userPassword = Utils::readLine(), FieldType::PASSWORD)) {
-        cout << "Try again." << endl;
-    }
 
     return user;
 }
