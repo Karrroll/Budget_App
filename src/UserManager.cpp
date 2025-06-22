@@ -37,23 +37,23 @@ void UserManager::loginUser() {
     int passwordAttemptsLeft = 3;
     string enteredLogin = "", enteredPassword = "";
 
-    cout << "Enter login: ";
+    cout << left << setw(12) << "Login:";
     enteredLogin = Utils::readLine();
 
     for (const auto &user : users) {
         if (user.userName == enteredLogin) {
             do {
-                cout << "Enter password: ";
+                cout << left << setw(12) << "Password:";
                 enteredPassword = Utils::readLine();
 
                 if (user.userPassword == enteredPassword) {
                     setLoggedUserId(user.id);
-                    cout << "\nHello " << enteredLogin << endl;
+                    cout << "\nHello " << enteredLogin << "!" << endl;
                     system("pause");
                     return;
                 }
 
-                if (--passwordAttemptsLeft != 0)
+                if (--passwordAttemptsLeft > 0)
                     cout << "\nInvalid password. Attempts left: " << passwordAttemptsLeft << endl;
             } while (passwordAttemptsLeft > 0);
 
