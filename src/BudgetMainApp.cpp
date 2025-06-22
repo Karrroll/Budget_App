@@ -15,8 +15,7 @@ void BudgetMainApp::loginUser() {
     cout << "\t<<< SIGN IN TO BUDGET APP >>>" << endl << endl;
     userManager.loginUser();
 
-    if (userManager.isUserLoggedIn())
-        transactionManager = new TransactionManager(userManager.getLoggedUserId(), INCOME_FILE_NAME, EXPENSE_FILE_NAME);
+    transactionManager = new TransactionManager(userManager.getLoggedUserId(), INCOME_FILE_NAME, EXPENSE_FILE_NAME);
 }
 
 void BudgetMainApp::changeUserPassword() {

@@ -23,7 +23,7 @@ void UserManager::registerNewUser() {
     User newUser = enterUserData();
 
     if (!userFile.addUserDataToFile(newUser)) {
-        cout << "\nUser registration fail." << endl;
+        cout << "\nUser registration failed." << endl;
         system("pause");
         return;
     }
@@ -48,9 +48,16 @@ void UserManager::loginUser() {
 
                 if (user.userPassword == enteredPassword) {
                     setLoggedUserId(user.id);
-                    cout << "\nHello " << enteredLogin << "!" << endl;
-                    system("pause");
-                    return;
+
+                    if (isUserLoggedIn()) {
+                        cout << "\nHello " << enteredLogin << "!" << endl;
+                        system("pause");
+                        return;
+                    } else {
+                        cout << "\nSign in failed." << endl;
+                        system("pause");
+                        return;
+                    }
                 }
 
                 if (--passwordAttemptsLeft > 0)
