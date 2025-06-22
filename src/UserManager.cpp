@@ -9,6 +9,16 @@ bool UserManager::isUserLoggedIn() {
     return (getLoggedUserId() > 0);
 }
 
+bool UserManager::isLoginAvailable(const string &userName) {
+    for (auto user : users) {
+        if (userName == user.userName) {
+            cout << "Login '" << userName << "' is already in use. Please choose another one." << endl << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 void UserManager::registerNewUser() {
     User newUser = enterUserData();
 
@@ -123,7 +133,7 @@ User UserManager::enterUserData() {
 
     do {
         cout << left << setw(13) << "Login:";
-    } while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN));
+    } while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN) || !isLoginAvailable(user.userName));
 
     do {
         cout << left << setw(13) << "Password:";
