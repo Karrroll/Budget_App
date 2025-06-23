@@ -4,17 +4,22 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
     string inputAmountString = "", dateString = "";
     Transaction transaction;
 
-    if (type == TransactionType::INCOME)
-        transaction.transactionId = incomeFile->getLastId() + 1;
-    else if (type == TransactionType::EXPENSE)
-        transaction.transactionId = expenseFile->getLastId() + 1;
-
-    transaction.userId = getLoggedUserId();
-
     do {
         dateString = DateMethods::selectDate();
         transaction.date = DateMethods::convertStringDateToInt(dateString);
     } while (transaction.date == 0);
+
+    system("cls");
+
+    if (type == TransactionType::INCOME) {
+        cout << "\t<<< NEW INCOME >>>" << endl << endl;
+        transaction.transactionId = incomeFile->getLastId() + 1;
+    } else if (type == TransactionType::EXPENSE) {
+        cout << "\t<<< NEW EXPENSE >>>" << endl << endl;
+        transaction.transactionId = expenseFile->getLastId() + 1;
+    }
+
+    transaction.userId = getLoggedUserId();
     cout << left << setw(10) << "Date:" << DateMethods::dateWithDashes(dateString) << endl;
 
     do {
@@ -25,11 +30,15 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
         cout << left << setw(10) << "Amount:";
         inputAmountString = Utils::readLine();
 
+        if (!Utils::isValidAmount(inputAmountString)) {
+            cout << "Invalid amount (only digits with up to two decimal places)." << endl << endl;
+            continue;
+        }
+
         double parsedAmount = Utils::parseAmount(inputAmountString);
 
-        if (!Utils::isValidAmount(inputAmountString) || parsedAmount <= 0) {
-            cout << "\nInvalid amount (must be greater than 0 with up to two decimal places)." << endl << endl;
-            system("pause");
+        if (parsedAmount <= 0) {
+            cout << "Amount must be greater than zero." << endl << endl;
             continue;
         }
 
@@ -189,10 +198,12 @@ pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType)
 
         return {startDate, endDate};
     } else {
+        //For CURRENT_MONTH or PREVIOUS_MONTH
+        const int TODAY_DATE = stoi(DateMethods::getTodayDate());
         const int FIRST_DAY_OF_MONTH = 1;
         const int FIRST_MONTH_OF_YEAR = 1;
         const int LAST_MONTH_OF_YEAR = 12;
-        const int CURRENT_YEAR_MONTH_DATE = stoi(DateMethods::getTodayDate()) / 100;
+        const int CURRENT_YEAR_MONTH_DATE = TODAY_DATE / 100;
 
         int year = CURRENT_YEAR_MONTH_DATE / 100;
         int month = CURRENT_YEAR_MONTH_DATE % 100;
@@ -208,7 +219,19 @@ pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType)
 
         int lastDayOfMonth = DateMethods::getDaysInMonth(year, month);
         startDate = createDate(year, month, FIRST_DAY_OF_MONTH);
-        endDate = createDate(year, month, lastDayOfMonth);
+
+        if (startDate == 0)
+            return {0, 0};
+
+        if (balanceType == BalanceType::PREVIOUS_MONTH)
+            endDate = createDate(year, month, lastDayOfMonth);
+        else if (balanceType == BalanceType::CURRENT_MONTH && DateMethods::validateDate(to_string(TODAY_DATE)))
+            endDate = TODAY_DATE;
+        else {
+            cout << "Invalid date. Cannot determine end date." << endl;
+            system("pause");
+            return {0, 0};
+        }
 
         return {startDate, endDate};
     }

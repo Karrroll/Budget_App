@@ -34,6 +34,7 @@ void Menus::showMenu(MenuType menuType) {
             showUserMenu();
             break;
         case (MenuType::DATE_SELECTION_MENU):
+            cout << "\t<<< DATE MENU >>>" << endl << endl;
             showDateSelectionMenu();
             break;
         default:

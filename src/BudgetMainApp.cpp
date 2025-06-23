@@ -29,14 +29,10 @@ void BudgetMainApp::logoutUser() {
 }
 
 void BudgetMainApp::addIncome() {
-    system("cls");
-    cout << "\t<<< NEW INCOME >>>" << endl << endl;
     transactionManager->addTransaction(TransactionType::INCOME);
 }
 
 void BudgetMainApp::addExpense() {
-    system("cls");
-    cout << "\t<<< NEW EXPENSE >>>" << endl << endl;
     transactionManager->addTransaction(TransactionType::EXPENSE);
 }
 void BudgetMainApp::showCurrentMonthBalance() {

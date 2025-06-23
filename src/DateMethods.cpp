@@ -45,17 +45,21 @@ bool DateMethods::isYearLeap(const int year) {
 }
 
 bool DateMethods::isDataFormatValid(const string &date) {
-    if (date.length() == 8) {
-        for (char sign: date) {
-            if (!isdigit(sign))
-                return false;
-        }
-        return true;
+    if (date.length() != 8) {
+        cout << "\nInvalid date format." << endl;
+        system("pause");
+        return false;
     }
 
-    cout << "\nInvalid date format." << endl;
-    system("pause");
-    return false;
+    for (char sign: date) {
+        if (!isdigit(sign)) {
+            cout << "\nInvalid date format. Only digit allowed." << endl;
+            system("pause");
+            return false;
+        }
+    }
+
+    return true;
 }
 
 bool DateMethods::isDateRangeValid(const string &date) {
@@ -103,52 +107,38 @@ string DateMethods::getTodayDate() {
 }
 
 string DateMethods::getUserSelectedDate() {
-    string dateTemplate = "yyyy-mm-dd";
-    string userDate = dateTemplate;
-    string userDateStr = "";
+    cout << "\rPlease enter the date (YYYY-MM-DD): ";
+    string userDate = Utils::readLine();
 
-    size_t i = 0;
-    while (i < userDate.length()) {
-        if (userDate[i] == '-') {
-            i++;
-            continue;
-        }
-
-        cout << "\rEnter date: " << userDate << flush;                  // ostatnie d sie pozbyc
-        char input = getch();
-
-        if (input == '\b' && i > 0) {
-            do {
-                i--;
-            } while (i > 0 && userDate[i] == '-');
-
-            userDate[i] = dateTemplate[i];
-            userDateStr.pop_back();
-            continue;
-        }
-
-        if (!isdigit(input))
-            continue;
-
-        userDate[i] = input;
-        userDateStr += input;
-        i++;
+    if (userDate[4] != '-' || userDate[7] != '-') {
+        cout << "\nInvalid date format." << endl;
+        system("pause");
+        return "0";
     }
 
-    if (!validateDate(userDateStr) || !confirmDate(userDate))
-        userDateStr = "0";
+    string noDashesDate = convertToNoDashesDate(userDate);
 
-    return userDateStr;
+    if (!validateDate(noDashesDate) || !confirmDate(noDashesDate))
+        return "0";
+
+    return noDashesDate;
 }
 
 bool DateMethods::confirmDate(const string &date) {
-    cout << "\nPress (y) to confirm or (n) to reject date: " << date << endl;
+    cout << "\nPress (y) to confirm or (n) to reject date: " << dateWithDashes(date) << endl;
     char userChoice = Utils::readCharacter();
 
     if (userChoice == 'y' || userChoice == 'Y')
         return true;
 
     return false;
+}
+
+string DateMethods::convertToNoDashesDate(const string &date) {
+    string noDashesDate = date;
+    noDashesDate.erase(remove(noDashesDate.begin(), noDashesDate.end(), '-'), noDashesDate.end());
+
+    return noDashesDate;
 }
 
 string DateMethods::dateWithDashes(const string &date) {
