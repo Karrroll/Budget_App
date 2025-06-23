@@ -16,6 +16,11 @@ void Menus::showUserMenu() {
     cout << "7. Logout" << endl;
 }
 
+void Menus::showDateSelectionMenu() {
+    cout << "1. Use today's date" << endl;
+    cout << "2. Enter a custom date" << endl;
+}
+
 void Menus::showMenu(MenuType menuType) {
     system("cls");
 
@@ -27,6 +32,9 @@ void Menus::showMenu(MenuType menuType) {
         case (MenuType::USER_MENU):
             cout << "\t<<< USER MENU >>>" << endl << endl;
             showUserMenu();
+            break;
+        case (MenuType::DATE_SELECTION_MENU):
+            showDateSelectionMenu();
             break;
         default:
             cout << "Unknown menu type." << endl;

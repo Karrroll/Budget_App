@@ -1,13 +1,21 @@
 #include "DateMethods.h"
 
 string DateMethods::selectDate() {
-    cout << "Press ENTER to use today's date or any other button to custom choose date: " << endl;
-    char choose = getch();
+    while (true) {
+        Menus::showMenu(MenuType::DATE_SELECTION_MENU);
+        char userChoice = Utils::readCharacter();
 
-    if (choose == '\r')
-        return getTodayDate();
-    else
-        return getUserSelectedDate();
+        switch (userChoice) {
+            case '1':
+                return getTodayDate();
+            case '2':
+                return getUserSelectedDate();
+            default:
+                cout << "\nInvalid choice. Please try again." << endl;
+                system("pause");
+                break;
+        }
+    }
 }
 
 int DateMethods::getDaysInMonth(const int year, const int month) {
@@ -45,7 +53,7 @@ bool DateMethods::isDataFormatValid(const string &date) {
         return true;
     }
 
-    cout << "Invalid date format." << endl;
+    cout << "\nInvalid date format." << endl;
     system("pause");
     return false;
 }
@@ -62,20 +70,20 @@ bool DateMethods::isDateRangeValid(const string &date) {
     string currentDate = getTodayDate();
 
     if (year < MIN_YEAR || date > currentDate) {
-        cout << "Invalid date. Date must be between 2000-01-01 and " << dateWithDashes(currentDate) << ". Try again." << endl;
+        cout << "\nInvalid date. Date must be between 2000-01-01 and " << dateWithDashes(currentDate) << " ." << endl;
         system("pause");
         return false;
     }
 
     if (month < MIN_MONTH || month > MAX_MONTH) {
-        cout << "Invalid date. Month is out of range for the selected date. Try again." << endl;
+        cout << "\nInvalid date. Month is out of range for the selected date." << endl;
         system("pause");
         return false;
     }
 
     int lastDayOfMonth = getDaysInMonth(year, month);
     if (day < MIN_DAY || day > lastDayOfMonth) {
-        cout << "Invalid date. Day is out of range for the selected date. Try again." << endl;
+        cout << "\nInvalid date. Day is out of range for the selected date." << endl;
         system("pause");
         return false;
     }
@@ -106,7 +114,7 @@ string DateMethods::getUserSelectedDate() {
             continue;
         }
 
-        cout << "\rEnter date: " << userDate << flush;
+        cout << "\rEnter date: " << userDate << flush;                  // ostatnie d sie pozbyc
         char input = getch();
 
         if (input == '\b' && i > 0) {
@@ -127,7 +135,6 @@ string DateMethods::getUserSelectedDate() {
         i++;
     }
 
-    cout << endl;
     if (!validateDate(userDateStr) || !confirmDate(userDate))
         userDateStr = "0";
 
@@ -135,7 +142,7 @@ string DateMethods::getUserSelectedDate() {
 }
 
 bool DateMethods::confirmDate(const string &date) {
-    cout << "Press (y) to confirm or (n) to reject date: " << date << endl;
+    cout << "\nPress (y) to confirm or (n) to reject date: " << date << endl;
     char userChoice = Utils::readCharacter();
 
     if (userChoice == 'y' || userChoice == 'Y')

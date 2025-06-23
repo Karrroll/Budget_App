@@ -39,8 +39,6 @@ public:
 
     Transaction enterTransactionData(TransactionType type);
     void addTransaction(TransactionType type);
-//    void addIncome();
-//    void addExpense();
     void showBalance(const int startDate, const int endDate);
     void showCurrentMonthBalance();
     void showPreviousMonthBalance();

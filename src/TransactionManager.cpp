@@ -1,8 +1,7 @@
 #include "TransactionManager.h"
 
 Transaction TransactionManager::enterTransactionData(TransactionType type) {
-    string inputAmountString = "";
-    double parsedAmount = 0.0;
+    string inputAmountString = "", dateString = "";
     Transaction transaction;
 
     if (type == TransactionType::INCOME)
@@ -12,32 +11,31 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
 
     transaction.userId = getLoggedUserId();
 
-    while (transaction.date == 0) {
-        transaction.date = DateMethods::convertStringDateToInt(DateMethods::selectDate());
-    }
+    do {
+        dateString = DateMethods::selectDate();
+        transaction.date = DateMethods::convertStringDateToInt(dateString);
+    } while (transaction.date == 0);
+    cout << left << setw(10) << "Date:" << DateMethods::dateWithDashes(dateString) << endl;
 
-    cout << "Item: ";
-    while (Utils::inputEmpty(transaction.item = Utils::readLine())) {
-        cout << "Try again." << endl;
-    }
+    do {
+        cout << left << setw(10) << "Item:";
+    } while (Utils::inputEmpty(transaction.item = Utils::readLine()));
 
-    cout << "Amount: ";
-    while (true) {
+    do {
+        cout << left << setw(10) << "Amount:";
         inputAmountString = Utils::readLine();
-        if (Utils::isValidAmount(inputAmountString)) {
-            parsedAmount = Utils::parseAmount(inputAmountString);
 
-            if (parsedAmount == 0.0) {
-                cout << "Amount must be greater than 0. Try again." << endl;
-                continue;
-            }
+        double parsedAmount = Utils::parseAmount(inputAmountString);
 
-            transaction.amount = parsedAmount;
-            break;
+        if (!Utils::isValidAmount(inputAmountString) || parsedAmount <= 0) {
+            cout << "\nInvalid amount (must be greater than 0 with up to two decimal places)." << endl << endl;
+            system("pause");
+            continue;
         }
-        cout << "Invalid amount format (only digits and up to two decimal places)." << endl;
-        cout << "Try again." << endl;
-    }
+
+        transaction.amount = parsedAmount;
+        break;
+    } while (true);
 
     return transaction;
 }
@@ -51,7 +49,7 @@ void TransactionManager::addTransaction(TransactionType type) {
     else if (type == TransactionType::EXPENSE)
         success = expenseFile->addTransactionToFile(newTransaction);
     else {
-        cout << "Unknown transaction type." << endl;
+        cout << "\nUnknown transaction type." << endl;
         system ("pause");
         return;
     }
@@ -61,40 +59,14 @@ void TransactionManager::addTransaction(TransactionType type) {
     } else if (type == TransactionType::EXPENSE && success) {
         expenses.push_back(newTransaction);
     } else {
-        cout << "Transaction add failed." << endl;
+        cout << "\nTransaction add failed." << endl;
         system("pause");
         return;
     }
 
-    cout << "Transaction added successfully." << endl;
+    cout << "\nTransaction added successfully." << endl;
     system("pause");
 }
-//merge income and expense transaction logic into single method
-//void TransactionManager::addIncome() {
-//    Transaction newIncomeTransaction = enterTransactionData(TransactionType::INCOME);
-//
-//    if (!incomeFile->addTransactionToFile(newIncomeTransaction)) {
-//        cout << "Failed to add income transaction." << endl;
-//    } else {
-//        incomes.push_back(newIncomeTransaction);
-//        cout << "Income transaction added successfully." << endl;
-//    }
-//
-//    system("pause");
-//}
-//
-//void TransactionManager::addExpense() {
-//    Transaction newExpenseTransaction = enterTransactionData(TransactionType::EXPENSE);
-//
-//    if (!expenseFile->addTransactionToFile(newExpenseTransaction)) {
-//        cout << "Failed to add expense transaction." << endl;
-//    } else {
-//        expenses.push_back(newExpenseTransaction);
-//        cout << "Expense transaction added successfully." << endl;
-//    }
-//
-//    system("pause");
-//}
 
 void TransactionManager::showBalance(const int startDate, const int endDate) {
     system("cls");

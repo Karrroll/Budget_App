@@ -15,7 +15,8 @@ enum class TransactionType {
 
 enum class MenuType {
     MAIN_MENU,
-    USER_MENU
+    USER_MENU,
+    DATE_SELECTION_MENU
 };
 
 enum class BalanceType {
