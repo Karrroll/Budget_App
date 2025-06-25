@@ -97,24 +97,21 @@ void UserManager::changeUserPassword() {
         enteredNewPassword = Utils::readLine();
 
         if (enteredNewPassword == user->userPassword) {
-            cout << "New password cannot be the same as the current one." << endl;
-            cout << "Try again." << endl;
+            cout << "New password cannot be the same as the current one." << endl << endl;
             continue;
         }
 
-        if (!Utils::validateInput(enteredNewPassword, FieldType::PASSWORD)) {
-            cout << "Try again." << endl;
+        if (!Utils::validateInput(enteredNewPassword, FieldType::PASSWORD))
             continue;
-        }
 
         if (!userFile.changePasswordInFile(user->id, enteredNewPassword)) {
-            cout << "Failed to change password in file." << endl;
+            cout << "\nFailed to change password in file." << endl;
             system("pause");
             return;
         }
 
         user->userPassword = enteredNewPassword;
-        cout << "Password changed successfully." << endl;
+        cout << "\nPassword changed successfully." << endl;
         system("pause");
         return;
     }

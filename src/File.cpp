@@ -12,7 +12,7 @@ bool File::isFileExist() {
 
 bool File::loadXmlFile(CMarkup &xmlFile) {
     if (!xmlFile.Load(FILE_NAME)) {
-        cout << "Failed to load XML file: '" << FILE_NAME << "'" << endl;
+        cout << "\nFailed to load XML file: '" << FILE_NAME << "'" << endl;
         return false;
     }
     return true;
@@ -20,7 +20,7 @@ bool File::loadXmlFile(CMarkup &xmlFile) {
 
 bool File::enterXmlRootNode(CMarkup &xmlFile) {
     if (!xmlFile.FindElem(ROOT_NODE_NAME)) {
-        cout << "Root node '" << ROOT_NODE_NAME << "' not found. Please verify '" << FILE_NAME << "' file format." << endl;
+        cout << "\nRoot node '" << ROOT_NODE_NAME << "' not found. Please verify '" << FILE_NAME << "' file format." << endl;
         return false;
     }
     xmlFile.IntoElem();

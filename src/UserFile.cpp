@@ -39,7 +39,7 @@ bool UserFile::changePasswordInFile(const int userId, const string &newPassword)
 
         if (!xmlFile.FindElem("id")) {
             xmlFile.OutOfElem();
-            cout << "<id> tag not found in node:" << endl;
+            cout << "\n<id> tag not found in node:" << endl << endl;
             cout << xmlFile.GetSubDoc() << endl;
             cout << "Please check structure of '" << getFileName() << "' file." << endl;
             system("pause");
@@ -54,7 +54,7 @@ bool UserFile::changePasswordInFile(const int userId, const string &newPassword)
 
         if (!xmlFile.FindElem("password")) {
             xmlFile.OutOfElem();
-            cout << "<password> tag not found in node:" << endl;
+            cout << "\n<password> tag not found in node:" << endl << endl;
             cout << xmlFile.GetSubDoc() << endl;
             cout << "Please check structure of '" << getFileName() << "' file." << endl;
             system("pause");
@@ -65,6 +65,8 @@ bool UserFile::changePasswordInFile(const int userId, const string &newPassword)
         xmlFile.OutOfElem();
         return xmlFile.Save(getFileName());
     }
+
+    cout << "No child node matching '" << getChildNodeName() << "' found. Please check structure of '" << getFileName() << "' file." << endl;
     return false;
 }
 
@@ -91,7 +93,7 @@ vector <User> UserFile::loadUsersFromFile() {
             xmlFile.OutOfElem();
 
             if (idString.empty() || user.firstName.empty() || user.lastName.empty() || user.userName.empty() || user.userPassword.empty()) {
-                cout << "Failed to load user data:" << endl;
+                cout << "Failed to load user data:" << endl << endl;
                 cout << xmlFile.GetSubDoc() << endl;
                 cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
                 system("pause");
