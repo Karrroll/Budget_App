@@ -182,16 +182,17 @@ pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType)
     };
 
     if (balanceType == BalanceType::CUSTOM_PERIOD) {
-        cout << "From: " << endl;
+        cout << "\nDATE FROM: ";
         do {
             startDate = DateMethods::convertStringDateToInt(DateMethods::getUserSelectedDate());
         } while (startDate == 0);
 
-        cout << "To: " << endl;
+        cout << "\nDATE TO: ";
         do {
             endDate = DateMethods::convertStringDateToInt(DateMethods::getUserSelectedDate());
             if (endDate < startDate && endDate != 0) {
-                cout << "Date cannot be earlier than start date. Try again." << endl;
+                cout << "\nDate cannot be earlier than start date. Try again." << endl;
+                system("pause");
                 endDate = 0;
             }
         } while (endDate == 0);

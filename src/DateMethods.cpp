@@ -107,7 +107,7 @@ string DateMethods::getTodayDate() {
 }
 
 string DateMethods::getUserSelectedDate() {
-    cout << "\rPlease enter the date (YYYY-MM-DD): ";
+    cout << "\nPlease enter the date (YYYY-MM-DD): ";
     string userDate = Utils::readLine();
 
     if (userDate[4] != '-' || userDate[7] != '-') {
