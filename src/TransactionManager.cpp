@@ -131,9 +131,9 @@ void TransactionManager::showCustomPeriodBalance() {
 
 void TransactionManager::showSummaryBalance(const double income, const double expense) {
     double totalBalance = income - expense;
-    cout << "TOTAL INCOME: " << fixed << setprecision(2) << income << endl;
-    cout << "TOTAL EXPENSE: " << fixed << setprecision(2) << -expense << endl << endl;
-    cout << "TOTAL BALANCE: " << fixed << setprecision(2) << totalBalance << endl;
+    cout << left << setw(24) << "TOTAL INCOME:" << fixed << setprecision(2) << income << endl;
+    cout << left << setw(24) << "TOTAL EXPENSE:" << fixed << setprecision(2) << -expense << endl << endl;
+    cout << left << setw(24) <<"TOTAL BALANCE:" << fixed << setprecision(2) << totalBalance << endl << endl;
     system("pause");
 }
 
