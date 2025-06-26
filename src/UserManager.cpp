@@ -18,20 +18,32 @@ bool UserManager::isLoginAvailable(const string &userName) {
     }
     return true;
 }
-
 void UserManager::registerNewUser() {
     User newUser = enterUserData();
 
     if (!userFile.addUserDataToFile(newUser)) {
         cout << "\nUser registration failed." << endl;
-        system("pause");
-        return;
+    } else {
+        users.push_back(newUser);
+        cout << "\nUser registered successfully." << endl;
     }
 
-    users.push_back(newUser);
-    cout << "\nUser registered successfully." << endl;
     system("pause");
 }
+
+//void UserManager::registerNewUser() {
+//    User newUser = enterUserData();
+//
+//    if (!userFile.addUserDataToFile(newUser)) {
+//        cout << "\nUser registration failed." << endl;
+//        system("pause");
+//        return;
+//    }
+//
+//    users.push_back(newUser);
+//    cout << "\nUser registered successfully." << endl;
+//    system("pause");
+//}
 
 void UserManager::loginUser() {
     int passwordAttemptsLeft = 3;
