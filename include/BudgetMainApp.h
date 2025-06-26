@@ -16,13 +16,8 @@ private:
     const string EXPENSE_FILE_NAME;
 
 public:
-    BudgetMainApp(const string &userFileName, const string &incomeFileName, const string &expenseFileName) : userManager(userFileName), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {
-        transactionManager = nullptr;
-    };
-    ~BudgetMainApp() {
-        delete transactionManager;
-        transactionManager = nullptr;
-    };
+    BudgetMainApp(const string &userFileName, const string &incomeFileName, const string &expenseFileName);
+    ~BudgetMainApp();
 
     bool isUserLoggedIn();
     void registerNewUser();

@@ -1,5 +1,14 @@
 #include "BudgetMainApp.h"
 
+BudgetMainApp::BudgetMainApp(const string &userFileName, const string &incomeFileName, const string &expenseFileName) : userManager(userFileName), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {
+    transactionManager = nullptr;
+}
+
+BudgetMainApp::~BudgetMainApp() {
+    delete transactionManager;
+    transactionManager = nullptr;
+}
+
 bool BudgetMainApp::isUserLoggedIn() {
     return userManager.isUserLoggedIn();
 }
