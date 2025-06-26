@@ -5,19 +5,18 @@ bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
     if (!isFileExist())
         createNewXmlFileWithRootNode(xmlFile);
 
-    if (loadXmlFile(xmlFile) && enterXmlRootNode(xmlFile)) {
-        addChildNode(xmlFile);
-
-        xmlFile.AddElem("transactionId", to_string(transaction.transactionId));
-        xmlFile.AddElem("userId", to_string(transaction.userId));
-        xmlFile.AddElem("date", to_string(transaction.date));
-        xmlFile.AddElem("item", transaction.item);
-        xmlFile.AddElem("amount", Utils::formatAmount(transaction.amount));
-
-        xmlFile.OutOfElem();
-    } else {
+    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
         return false;
-    }
+
+    addChildNode(xmlFile);
+
+    xmlFile.AddElem("transactionId", to_string(transaction.transactionId));
+    xmlFile.AddElem("userId", to_string(transaction.userId));
+    xmlFile.AddElem("date", to_string(transaction.date));
+    xmlFile.AddElem("item", transaction.item);
+    xmlFile.AddElem("amount", Utils::formatAmount(transaction.amount));
+
+    xmlFile.OutOfElem();
 
     if (!xmlFile.Save(getFileName())) {
         cout << "Failed to save the XML file: " << getFileName() << endl;
@@ -36,47 +35,45 @@ vector <Transaction> TransactionFile::loadUserTransactionsFromFile(const int use
     if (!isFileExist())
         return transactions;
 
-    if (loadXmlFile(xmlFile) && enterXmlRootNode(xmlFile)) {
-        Transaction transaction;
-        const string transactionNodeName = getChildNodeName();
+    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+        exit(1);
 
-        while (xmlFile.FindElem(transactionNodeName)) {
-            xmlFile.IntoElem();
+    Transaction transaction;
+    const string transactionNodeName = getChildNodeName();
 
-            string transactionIdString = getElementData(xmlFile, "transactionId");
-            string userIdString = getElementData(xmlFile, "userId");
-            string dateString = getElementData(xmlFile, "date");
-            transaction.item = getElementData(xmlFile, "item");
-            string amountString = getElementData(xmlFile, "amount");
+    while (xmlFile.FindElem(transactionNodeName)) {
+        xmlFile.IntoElem();
 
-            xmlFile.OutOfElem();
+        string transactionIdString = getElementData(xmlFile, "transactionId");
+        string userIdString = getElementData(xmlFile, "userId");
+        string dateString = getElementData(xmlFile, "date");
+        transaction.item = getElementData(xmlFile, "item");
+        string amountString = getElementData(xmlFile, "amount");
 
-            if (transactionIdString.empty() || userIdString.empty() || dateString.empty() || transaction.item.empty() || amountString.empty()) {
-                cout << "Failed to load income transaction data:" << endl;
-                cout << xmlFile.GetSubDoc() << endl;
-                cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
-                system("pause");
-                exit(1);
-            }
+        xmlFile.OutOfElem();
 
-            if (stoi(userIdString) == userId) {
-                transaction.transactionId = stoi(transactionIdString);
-                transaction.userId = stoi(userIdString);
-                transaction.date = DateMethods::convertStringDateToInt(dateString);
-                transaction.amount = stod(amountString);
-
-                transactions.push_back(transaction);
-            }
-
-            lastTransactionIdInFile = stoi(transactionIdString);
+        if (transactionIdString.empty() || userIdString.empty() || dateString.empty() || transaction.item.empty() || amountString.empty()) {
+            cout << "Failed to load income transaction data:" << endl;
+            cout << xmlFile.GetSubDoc() << endl;
+            cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
+            system("pause");
+            exit(1);
         }
 
-        if (lastTransactionIdInFile != 0)
-            setLastId(lastTransactionIdInFile);
+        if (stoi(userIdString) == userId) {
+            transaction.transactionId = stoi(transactionIdString);
+            transaction.userId = stoi(userIdString);
+            transaction.date = DateMethods::convertStringDateToInt(dateString);
+            transaction.amount = stod(amountString);
 
-    } else {
-        exit(1);
+            transactions.push_back(transaction);
+        }
+
+        lastTransactionIdInFile = stoi(transactionIdString);
     }
+
+    if (lastTransactionIdInFile != 0)
+        setLastId(lastTransactionIdInFile);
 
     return transactions;
 }
