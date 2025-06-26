@@ -5,19 +5,18 @@ bool UserFile::addUserDataToFile(const User &user) {
     if (!isFileExist())
         createNewXmlFileWithRootNode(xmlFile);
 
-    if (loadXmlFile(xmlFile) && enterXmlRootNode(xmlFile)) {
-        addChildNode(xmlFile);
-
-        xmlFile.AddElem("id", to_string(user.id));
-        xmlFile.AddElem("firstName", user.firstName);
-        xmlFile.AddElem("lastName", user.lastName);
-        xmlFile.AddElem("login", user.userName);
-        xmlFile.AddElem("password", user.userPassword);
-
-        xmlFile.OutOfElem();
-    } else {
+    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
         return false;
-    }
+
+    addChildNode(xmlFile);
+
+    xmlFile.AddElem("id", to_string(user.id));
+    xmlFile.AddElem("firstName", user.firstName);
+    xmlFile.AddElem("lastName", user.lastName);
+    xmlFile.AddElem("login", user.userName);
+    xmlFile.AddElem("password", user.userPassword);
+
+    xmlFile.OutOfElem();
 
     if (!xmlFile.Save(getFileName())) {
         cout << "Failed to save the XML file: " << getFileName() << endl;
