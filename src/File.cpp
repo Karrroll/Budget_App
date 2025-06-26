@@ -6,21 +6,21 @@ void File::setLastId(const int id) {
 }
 
 bool File::isFileExist() {
-    ifstream file(FILE_NAME);
+    ifstream file(getFileName());
     return file.good();
 }
 
 bool File::loadXmlFile(CMarkup &xmlFile) {
-    if (!xmlFile.Load(FILE_NAME)) {
-        cout << "\nFailed to load XML file: '" << FILE_NAME << "'" << endl;
+    if (!xmlFile.Load(getFileName())) {
+        cout << "\nFailed to load XML file: '" << getFileName() << "'" << endl;
         return false;
     }
     return true;
 }
 
 bool File::enterXmlRootNode(CMarkup &xmlFile) {
-    if (!xmlFile.FindElem(ROOT_NODE_NAME)) {
-        cout << "\nRoot node '" << ROOT_NODE_NAME << "' not found. Please verify '" << FILE_NAME << "' file format." << endl;
+    if (!xmlFile.FindElem(getRootNodeName())) {
+        cout << "\nRoot node '" << getRootNodeName() << "' not found. Please verify '" << getFileName() << "' file format." << endl;
         return false;
     }
     xmlFile.IntoElem();
@@ -28,12 +28,12 @@ bool File::enterXmlRootNode(CMarkup &xmlFile) {
 }
 
 void File::createNewXmlFileWithRootNode(CMarkup &xmlFile) {
-    xmlFile.AddElem(ROOT_NODE_NAME);
-    xmlFile.Save(FILE_NAME);
+    xmlFile.AddElem(getRootNodeName());
+    xmlFile.Save(getFileName());
 }
 
 void File::addChildNode(CMarkup &xmlFile) {
-    xmlFile.AddElem(CHILD_NODE_NAME);
+    xmlFile.AddElem(getChildNodeName());
     xmlFile.IntoElem();
 }
 
