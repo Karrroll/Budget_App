@@ -8,7 +8,8 @@ bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
     if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
         return false;
 
-    addChildNode(xmlFile);
+    if (!addChildNode(xmlFile))
+        return false;
 
     xmlFile.AddElem("transactionId", to_string(transaction.transactionId));
     xmlFile.AddElem("userId", to_string(transaction.userId));

@@ -32,9 +32,8 @@ void File::createNewXmlFileWithRootNode(CMarkup &xmlFile) {
     xmlFile.Save(getFileName());
 }
 
-void File::addChildNode(CMarkup &xmlFile) {
-    xmlFile.AddElem(getChildNodeName());
-    xmlFile.IntoElem();
+bool File::addChildNode(CMarkup &xmlFile) {
+    return xmlFile.AddElem(getChildNodeName()) && xmlFile.IntoElem();
 }
 
 string File::getElementData(CMarkup &xmlFile, const string &elementName) {

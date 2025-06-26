@@ -8,7 +8,8 @@ bool UserFile::addUserDataToFile(const User &user) {
     if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
         return false;
 
-    addChildNode(xmlFile);
+    if (!addChildNode(xmlFile))
+        return false;
 
     xmlFile.AddElem("id", to_string(user.id));
     xmlFile.AddElem("firstName", user.firstName);
