@@ -1,25 +1,25 @@
 #include "UserFile.h"
 
 bool UserFile::addUserDataToFile(const User &user) {
-    CMarkup xmlFile;
+    CMarkup userXmlFile;
     if (!isFileExist())
-        createNewXmlFileWithRootNode(xmlFile);
+        createNewXmlFileWithRootNode(userXmlFile);
 
-    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+    if (!loadXmlFile(userXmlFile) || !enterXmlRootNode(userXmlFile))
         return false;
 
-    if (!addChildNode(xmlFile))
+    if (!addChildNode(userXmlFile))
         return false;
 
-    xmlFile.AddElem("id", to_string(user.id));
-    xmlFile.AddElem("firstName", user.firstName);
-    xmlFile.AddElem("lastName", user.lastName);
-    xmlFile.AddElem("login", user.userName);
-    xmlFile.AddElem("password", user.userPassword);
+    userXmlFile.AddElem("id", to_string(user.id));
+    userXmlFile.AddElem("firstName", user.firstName);
+    userXmlFile.AddElem("lastName", user.lastName);
+    userXmlFile.AddElem("login", user.userName);
+    userXmlFile.AddElem("password", user.userPassword);
 
-    xmlFile.OutOfElem();
+    userXmlFile.OutOfElem();
 
-    if (!xmlFile.Save(getFileName())) {
+    if (!userXmlFile.Save(getFileName())) {
         cout << "Failed to save the XML file: " << getFileName() << endl;
         return false;
     }
@@ -29,41 +29,41 @@ bool UserFile::addUserDataToFile(const User &user) {
 }
 
 bool UserFile::changePasswordInFile(const int userId, const string &newPassword) {
-    CMarkup xmlFile;
+    CMarkup userXmlFile;
 
-    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+    if (!loadXmlFile(userXmlFile) || !enterXmlRootNode(userXmlFile))
         return false;
 
-    while (xmlFile.FindElem(getChildNodeName())) {
-        xmlFile.IntoElem();
+    while (userXmlFile.FindElem(getChildNodeName())) {
+        userXmlFile.IntoElem();
 
-        if (!xmlFile.FindElem("id")) {
-            xmlFile.OutOfElem();
+        if (!userXmlFile.FindElem("id")) {
+            userXmlFile.OutOfElem();
             cout << "\n<id> tag not found in node:" << endl << endl;
-            cout << xmlFile.GetSubDoc() << endl;
+            cout << userXmlFile.GetSubDoc() << endl;
             cout << "Please check structure of '" << getFileName() << "' file." << endl;
             system("pause");
             return false;
         }
 
-        int currentId = stoi(xmlFile.GetData());
+        int currentId = stoi(userXmlFile.GetData());
         if (currentId != userId) {
-            xmlFile.OutOfElem();
+            userXmlFile.OutOfElem();
             continue;
         }
 
-        if (!xmlFile.FindElem("password")) {
-            xmlFile.OutOfElem();
+        if (!userXmlFile.FindElem("password")) {
+            userXmlFile.OutOfElem();
             cout << "\n<password> tag not found in node:" << endl << endl;
-            cout << xmlFile.GetSubDoc() << endl;
+            cout << userXmlFile.GetSubDoc() << endl;
             cout << "Please check structure of '" << getFileName() << "' file." << endl;
             system("pause");
             return false;
         }
 
-        xmlFile.SetData(newPassword);
-        xmlFile.OutOfElem();
-        return xmlFile.Save(getFileName());
+        userXmlFile.SetData(newPassword);
+        userXmlFile.OutOfElem();
+        return userXmlFile.Save(getFileName());
     }
 
     cout << "No child node matching '" << getChildNodeName() << "' found. Please check structure of '" << getFileName() << "' file." << endl;
@@ -71,30 +71,30 @@ bool UserFile::changePasswordInFile(const int userId, const string &newPassword)
 }
 
 vector <User> UserFile::loadUsersFromFile() {
-    CMarkup xmlFile;
+    CMarkup userXmlFile;
     vector <User> users;
 
     if (!isFileExist())
         return users;
 
-    if (loadXmlFile(xmlFile) && enterXmlRootNode(xmlFile)) {
+    if (loadXmlFile(userXmlFile) && enterXmlRootNode(userXmlFile)) {
         User user;
         const string userNodeName = getChildNodeName();
 
-        while (xmlFile.FindElem(userNodeName)) {
-            xmlFile.IntoElem();
+        while (userXmlFile.FindElem(userNodeName)) {
+            userXmlFile.IntoElem();
 
-            string idString = getElementData(xmlFile, "id");
-            user.firstName = getElementData(xmlFile, "firstName");
-            user.lastName = getElementData(xmlFile, "lastName");
-            user.userName = getElementData(xmlFile, "login");
-            user.userPassword = getElementData(xmlFile, "password");
+            string idString = getElementData(userXmlFile, "id");
+            user.firstName = getElementData(userXmlFile, "firstName");
+            user.lastName = getElementData(userXmlFile, "lastName");
+            user.userName = getElementData(userXmlFile, "login");
+            user.userPassword = getElementData(userXmlFile, "password");
 
-            xmlFile.OutOfElem();
+            userXmlFile.OutOfElem();
 
             if (idString.empty() || user.firstName.empty() || user.lastName.empty() || user.userName.empty() || user.userPassword.empty()) {
                 cout << "Failed to load user data:" << endl << endl;
-                cout << xmlFile.GetSubDoc() << endl;
+                cout << userXmlFile.GetSubDoc() << endl;
                 cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
                 system("pause");
                 exit(1);

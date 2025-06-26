@@ -1,25 +1,25 @@
 #include "TransactionFile.h"
 
 bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
-    CMarkup xmlFile;
+    CMarkup transactionXmlFile;
     if (!isFileExist())
-        createNewXmlFileWithRootNode(xmlFile);
+        createNewXmlFileWithRootNode(transactionXmlFile);
 
-    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+    if (!loadXmlFile(transactionXmlFile) || !enterXmlRootNode(transactionXmlFile))
         return false;
 
-    if (!addChildNode(xmlFile))
+    if (!addChildNode(transactionXmlFile))
         return false;
 
-    xmlFile.AddElem("transactionId", to_string(transaction.transactionId));
-    xmlFile.AddElem("userId", to_string(transaction.userId));
-    xmlFile.AddElem("date", to_string(transaction.date));
-    xmlFile.AddElem("item", transaction.item);
-    xmlFile.AddElem("amount", Utils::formatAmount(transaction.amount));
+    transactionXmlFile.AddElem("transactionId", to_string(transaction.transactionId));
+    transactionXmlFile.AddElem("userId", to_string(transaction.userId));
+    transactionXmlFile.AddElem("date", to_string(transaction.date));
+    transactionXmlFile.AddElem("item", transaction.item);
+    transactionXmlFile.AddElem("amount", Utils::formatAmount(transaction.amount));
 
-    xmlFile.OutOfElem();
+    transactionXmlFile.OutOfElem();
 
-    if (!xmlFile.Save(getFileName())) {
+    if (!transactionXmlFile.Save(getFileName())) {
         cout << "Failed to save the XML file: " << getFileName() << endl;
         return false;
     }
@@ -29,33 +29,33 @@ bool TransactionFile::addTransactionToFile(const Transaction &transaction) {
 }
 
 vector <Transaction> TransactionFile::loadUserTransactionsFromFile(const int userId) {
-    CMarkup xmlFile;
+    CMarkup transactionXmlFile;
     int lastTransactionIdInFile = 0;
     vector <Transaction> transactions;
 
     if (!isFileExist())
         return transactions;
 
-    if (!loadXmlFile(xmlFile) || !enterXmlRootNode(xmlFile))
+    if (!loadXmlFile(transactionXmlFile) || !enterXmlRootNode(transactionXmlFile))
         exit(1);
 
     Transaction transaction;
     const string transactionNodeName = getChildNodeName();
 
-    while (xmlFile.FindElem(transactionNodeName)) {
-        xmlFile.IntoElem();
+    while (transactionXmlFile.FindElem(transactionNodeName)) {
+        transactionXmlFile.IntoElem();
 
-        string transactionIdString = getElementData(xmlFile, "transactionId");
-        string userIdString = getElementData(xmlFile, "userId");
-        string dateString = getElementData(xmlFile, "date");
-        transaction.item = getElementData(xmlFile, "item");
-        string amountString = getElementData(xmlFile, "amount");
+        string transactionIdString = getElementData(transactionXmlFile, "transactionId");
+        string userIdString = getElementData(transactionXmlFile, "userId");
+        string dateString = getElementData(transactionXmlFile, "date");
+        transaction.item = getElementData(transactionXmlFile, "item");
+        string amountString = getElementData(transactionXmlFile, "amount");
 
-        xmlFile.OutOfElem();
+        transactionXmlFile.OutOfElem();
 
         if (transactionIdString.empty() || userIdString.empty() || dateString.empty() || transaction.item.empty() || amountString.empty()) {
             cout << "Failed to load income transaction data:" << endl;
-            cout << xmlFile.GetSubDoc() << endl;
+            cout << transactionXmlFile.GetSubDoc() << endl;
             cout << "Please check structure and content of '" << getFileName() << "' file." << endl;
             system("pause");
             exit(1);
