@@ -80,20 +80,29 @@ void TransactionManager::addTransaction(TransactionType type) {
 void TransactionManager::showBalance(const int startDate, const int endDate) {
     system("cls");
     cout << "\t<<< BALANCE OVERVIEW >>>" << endl << endl;
-    cout << "INCOME TRANSACTIONS:" << endl;
 
+    cout << "INCOME TRANSACTIONS:" << endl;
     vector <Transaction> filteredIncomeTransactions = filteredTransactionsByDate(incomes, startDate, endDate);
-    sortTransactionsByDate(filteredIncomeTransactions);
-    showTransactions(filteredIncomeTransactions, TransactionType::INCOME);
+
+    if (!filteredIncomeTransactions.empty()) {
+        sortTransactionsByDate(filteredIncomeTransactions);
+        showTransactions(filteredIncomeTransactions, TransactionType::INCOME);
+    } else {
+        cout << "No income transactions found in the selected period." << endl << endl;
+    }
 
     cout << "EXPENSE TRANSACTIONS:" << endl;
-
     vector <Transaction> filteredExpenseTransactions = filteredTransactionsByDate(expenses, startDate, endDate);
-    sortTransactionsByDate(filteredExpenseTransactions);
-    showTransactions(filteredExpenseTransactions, TransactionType::EXPENSE);
 
-    double totalExpenseAmount = calculateTotalTransactionsAmount(filteredExpenseTransactions);
+    if (!filteredExpenseTransactions.empty()) {
+        sortTransactionsByDate(filteredExpenseTransactions);
+        showTransactions(filteredExpenseTransactions, TransactionType::EXPENSE);
+    } else {
+        cout << "No expense transactions found in the selected period." << endl << endl;
+    }
+
     double totalIncomeAmount = calculateTotalTransactionsAmount(filteredIncomeTransactions);
+    double totalExpenseAmount = calculateTotalTransactionsAmount(filteredExpenseTransactions);
     showSummaryBalance(totalIncomeAmount, totalExpenseAmount);
 }
 
@@ -131,6 +140,7 @@ void TransactionManager::showCustomPeriodBalance() {
 
 void TransactionManager::showSummaryBalance(const double income, const double expense) {
     double totalBalance = income - expense;
+    cout << string(55, '-') << endl;
     cout << left << setw(24) << "TOTAL INCOME:" << fixed << setprecision(2) << income << endl;
     cout << left << setw(24) << "TOTAL EXPENSE:" << fixed << setprecision(2) << -expense << endl << endl;
     cout << left << setw(24) <<"TOTAL BALANCE:" << fixed << setprecision(2) << totalBalance << endl << endl;
