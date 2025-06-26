@@ -101,7 +101,7 @@ void UserManager::changeUserPassword() {
             continue;
         }
 
-        if (!Utils::validateInput(enteredNewPassword, FieldType::PASSWORD))
+        if (!Utils::validateInput(enteredNewPassword, UserFieldType::PASSWORD))
             continue;
 
         if (!userFile.changePasswordInFile(user->id, enteredNewPassword)) {
@@ -129,19 +129,19 @@ User UserManager::enterUserData() {
     user.id = userFile.getLastId() + 1;
     do {
         cout << left << setw(13) << "First Name:";
-    } while (!Utils::validateInput(user.firstName = Utils::readLine(), FieldType::FIRST_NAME));
+    } while (!Utils::validateInput(user.firstName = Utils::readLine(), UserFieldType::FIRST_NAME));
 
     do {
         cout << left << setw(13) << "Last Name:";
-    } while (!Utils::validateInput(user.lastName = Utils::readLine(), FieldType::LAST_NAME));
+    } while (!Utils::validateInput(user.lastName = Utils::readLine(), UserFieldType::LAST_NAME));
 
     do {
         cout << left << setw(13) << "Login:";
-    } while (!Utils::validateInput(user.userName = Utils::readLine(), FieldType::LOGIN) || !isLoginAvailable(user.userName));
+    } while (!Utils::validateInput(user.userName = Utils::readLine(), UserFieldType::LOGIN) || !isLoginAvailable(user.userName));
 
     do {
         cout << left << setw(13) << "Password:";
-    } while (!Utils::validateInput(user.userPassword = Utils::readLine(), FieldType::PASSWORD));
+    } while (!Utils::validateInput(user.userPassword = Utils::readLine(), UserFieldType::PASSWORD));
 
     Utils::upperFirstLowerRest(user.firstName);
     Utils::upperFirstLowerRest(user.lastName);

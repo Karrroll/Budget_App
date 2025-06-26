@@ -1,7 +1,7 @@
 #ifndef TYPE_H_INCLUDED
 #define TYPE_H_INCLUDED
 
-enum class FieldType {
+enum class UserFieldType {
     FIRST_NAME,
     LAST_NAME,
     LOGIN,

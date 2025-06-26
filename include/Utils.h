@@ -21,7 +21,7 @@ public:
     static bool isValidAmount(const string &amount);
     static double parseAmount(const string &input);
     static string formatAmount(const double &amount);
-    static bool validateInput(const string &input, FieldType inputType);
+    static bool validateInput(const string &input, UserFieldType inputType);
     static bool inputEmpty(const string &input);
     static bool containsOnlyLetters(const string &input);
     static bool containsSpaces(const string &input);

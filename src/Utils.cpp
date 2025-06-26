@@ -43,16 +43,16 @@ string Utils::formatAmount(const double &amount) {
     return oss.str();
 }
 
-bool Utils::validateInput(const string &input, FieldType type) {
+bool Utils::validateInput(const string &input, UserFieldType type) {
     if (inputEmpty(input) || containsSpaces(input))
         return false;
 
     switch(type) {
-        case(FieldType::FIRST_NAME): case(FieldType::LAST_NAME):
+        case(UserFieldType::FIRST_NAME): case(UserFieldType::LAST_NAME):
             return correctLength(input, 2, 20) && containsOnlyLetters(input);
-        case(FieldType::LOGIN):
+        case(UserFieldType::LOGIN):
             return correctLength(input, 3, 20);
-        case(FieldType::PASSWORD):
+        case(UserFieldType::PASSWORD):
             return correctLength(input, 6, 20);
         default:
             cout << "Unknown field type." << endl;
