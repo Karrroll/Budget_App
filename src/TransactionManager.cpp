@@ -20,7 +20,7 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
     }
 
     transaction.userId = getLoggedUserId();
-    cout << left << setw(10) << "Date:" << DateMethods::dateWithDashes(dateString) << endl;
+    cout << left << setw(10) << "Date:" << DateMethods::convertToDateWithDashes(dateString) << endl;
 
     do {
         cout << left << setw(10) << "Item:";
@@ -156,7 +156,7 @@ void TransactionManager::sortTransactionsByDate(vector <Transaction> &transactio
 
 void TransactionManager::showTransactions(const vector <Transaction> &transactions, TransactionType type) {
     for (const auto &transaction: transactions) {
-        string date = DateMethods::dateWithDashes(to_string(transaction.date));
+        string date = DateMethods::convertToDateWithDashes(to_string(transaction.date));
 
         cout << "Transaction ID: " << transaction.transactionId << "\tDate: " << date << endl;
         cout << "Item: " << transaction.item << endl;

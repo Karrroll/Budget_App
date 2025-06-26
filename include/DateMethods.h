@@ -25,7 +25,7 @@ public:
     static string getUserSelectedDate();
     static bool confirmDate(const string &date);
     static string convertToNoDashesDate(const string &date);
-    static string dateWithDashes(const string &date);
+    static string convertToDateWithDashes(const string &date);
     static int convertStringDateToInt(const string &dateStr);
 protected:
 

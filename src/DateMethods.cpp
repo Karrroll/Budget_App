@@ -74,7 +74,7 @@ bool DateMethods::isDateRangeValid(const string &date) {
     string currentDate = getTodayDate();
 
     if (year < MIN_YEAR || date > currentDate) {
-        cout << "\nInvalid date. Date must be between 2000-01-01 and " << dateWithDashes(currentDate) << " ." << endl;
+        cout << "\nInvalid date. Date must be between 2000-01-01 and " << convertToDateWithDashes(currentDate) << " ." << endl;
         system("pause");
         return false;
     }
@@ -125,7 +125,7 @@ string DateMethods::getUserSelectedDate() {
 }
 
 bool DateMethods::confirmDate(const string &date) {
-    cout << "\nPress (y) to confirm or (n) to reject date: " << dateWithDashes(date) << endl;
+    cout << "\nPress (y) to confirm or (n) to reject date: " << convertToDateWithDashes(date) << endl;
     char userChoice = Utils::readCharacter();
 
     if (userChoice == 'y' || userChoice == 'Y')
@@ -141,7 +141,7 @@ string DateMethods::convertToNoDashesDate(const string &date) {
     return noDashesDate;
 }
 
-string DateMethods::dateWithDashes(const string &date) {
+string DateMethods::convertToDateWithDashes(const string &date) {
     return date.substr(0, 4) + "-" + date.substr(4, 2) + "-" + date.substr(6, 2);
 }
 
