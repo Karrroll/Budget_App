@@ -18,10 +18,7 @@ private:
     User enterUserData();
     User *findUserById(const int id);
 public:
-    UserManager(const string &userFileName) : userFile(userFileName) {
-        loggedUserId = 0;
-        users = userFile.loadUsersFromFile();
-    };
+    UserManager(const string &userFileName);
 
     int getLoggedUserId() const { return loggedUserId; };
     void setLoggedUserId(const int id);

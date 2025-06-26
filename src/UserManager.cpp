@@ -1,5 +1,10 @@
 #include "UserManager.h"
 
+UserManager::UserManager(const string &userFileName) : userFile(userFileName) {
+    loggedUserId = 0;
+    users = userFile.loadUsersFromFile();
+}
+
 void UserManager::setLoggedUserId(const int id) {
     if (id != this->loggedUserId && id >= 0)
         this->loggedUserId = id;

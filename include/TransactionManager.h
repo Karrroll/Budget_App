@@ -22,19 +22,8 @@ private:
     TransactionFile *incomeFile;
     TransactionFile *expenseFile;
 public:
-    TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName) : LOGGED_USER_ID(id), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {
-        incomeFile = new TransactionFile(INCOME_FILE_NAME);
-        incomes = incomeFile->loadUserTransactionsFromFile(LOGGED_USER_ID);
-
-        expenseFile = new TransactionFile(EXPENSE_FILE_NAME);
-        expenses = expenseFile->loadUserTransactionsFromFile(LOGGED_USER_ID);
-    };
-
-    ~TransactionManager() {
-        delete incomeFile;
-        delete expenseFile;
-    }
-
+    TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName);
+    ~TransactionManager();
     int getLoggedUserId() const { return LOGGED_USER_ID; };
 
     Transaction enterTransactionData(TransactionType type);
