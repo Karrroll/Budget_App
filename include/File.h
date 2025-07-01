@@ -21,17 +21,19 @@ public:
 
     int getLastId() const { return lastId; };
     void setLastId(const int id);
+
     string getFileName() const { return FILE_NAME; };
-    string getRootNodeName() const { return ROOT_NODE_NAME; };
-    string getChildNodeName() const { return CHILD_NODE_NAME; };
 
 protected:
+    string getRootNodeName() const { return ROOT_NODE_NAME; };
+    string getChildNodeName() const { return CHILD_NODE_NAME; };
+    string getElementData(CMarkup &xmlFile, const string &elementName);
+
     bool isFileExist();
     bool loadXmlFile(CMarkup &xmlFile);
     bool enterXmlRootNode(CMarkup &xmlFile);
     void createNewXmlFileWithRootNode(CMarkup &xmlFile);
     bool addChildNode(CMarkup &xmlFile);
-    string getElementData(CMarkup &xmlFile, const string &elementName);
 };
 
 #endif // FILE_H

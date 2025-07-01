@@ -21,23 +21,26 @@ private:
 
     TransactionFile *incomeFile;
     TransactionFile *expenseFile;
+
+    Transaction enterTransactionData(TransactionType type);
+    pair <int, int> getStartAndEndDates(BalanceType balanceType);
+    void sortTransactionsByDate(vector <Transaction> &transactions);
+    vector <Transaction> filteredTransactionsByDate(const vector <Transaction> &transactions, const int startDate, const int endDate);
+    double calculateTotalTransactionsAmount(const vector <Transaction> &transactions);
+    void showTransactions(const vector <Transaction> &transactions, TransactionType type);
+    void showBalance(const int startDate, const int endDate);
+    void showSummaryBalance(const double income, const double expense);
+
 public:
     TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName);
     ~TransactionManager();
+
     int getLoggedUserId() const { return LOGGED_USER_ID; };
 
-    Transaction enterTransactionData(TransactionType type);
     void addTransaction(TransactionType type);
-    void showBalance(const int startDate, const int endDate);
     void showCurrentMonthBalance();
     void showPreviousMonthBalance();
     void showCustomPeriodBalance();
-    pair <int, int> getStartAndEndDates(BalanceType balanceType);
-    vector <Transaction> filteredTransactionsByDate(const vector <Transaction> &transactions, const int startDate, const int endDate);
-    void sortTransactionsByDate(vector <Transaction> &transactions);
-    void showSummaryBalance(const double income, const double expense);
-    void showTransactions(const vector <Transaction> &transactions, TransactionType type);
-    double calculateTotalTransactionsAmount(const vector <Transaction> &transactions);
 };
 
 #endif // TRANSACTIONMANAGER_H

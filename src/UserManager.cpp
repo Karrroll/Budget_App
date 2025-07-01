@@ -10,10 +10,6 @@ void UserManager::setLoggedUserId(const int id) {
         this->loggedUserId = id;
 }
 
-bool UserManager::isUserLoggedIn() {
-    return (getLoggedUserId() > 0);
-}
-
 bool UserManager::isLoginAvailable(const string &userName) {
     for (auto user : users) {
         if (userName == user.userName) {
@@ -22,6 +18,44 @@ bool UserManager::isLoginAvailable(const string &userName) {
         }
     }
     return true;
+}
+
+User UserManager::enterUserData() {
+    User user;
+
+    user.id = userFile.getLastId() + 1;
+    do {
+        cout << left << setw(13) << "First Name:";
+    } while (!Utils::validateInput(user.firstName = Utils::readLine(), UserFieldType::FIRST_NAME));
+
+    do {
+        cout << left << setw(13) << "Last Name:";
+    } while (!Utils::validateInput(user.lastName = Utils::readLine(), UserFieldType::LAST_NAME));
+
+    do {
+        cout << left << setw(13) << "Login:";
+    } while (!Utils::validateInput(user.userName = Utils::readLine(), UserFieldType::LOGIN) || !isLoginAvailable(user.userName));
+
+    do {
+        cout << left << setw(13) << "Password:";
+    } while (!Utils::validateInput(user.userPassword = Utils::readLine(), UserFieldType::PASSWORD));
+
+    Utils::upperFirstLowerRest(user.firstName);
+    Utils::upperFirstLowerRest(user.lastName);
+
+    return user;
+}
+
+User *UserManager::findUserById(const int id) {
+    for (auto &user : users) {
+        if (id == user.id)
+            return &user;
+    }
+    return nullptr;
+}
+
+bool UserManager::isUserLoggedIn() {
+    return (getLoggedUserId() > 0);
 }
 
 void UserManager::registerNewUser() {
@@ -77,14 +111,6 @@ void UserManager::loginUser() {
     system("pause");
 }
 
-User *UserManager::findUserById(const int id) {
-    for (auto &user : users) {
-        if (id == user.id)
-            return &user;
-    }
-    return nullptr;
-}
-
 void UserManager::changeUserPassword() {
     int loggedUserId = getLoggedUserId();
     User *user = findUserById(loggedUserId);
@@ -126,30 +152,3 @@ void UserManager::logoutUser() {
     cout << "\nLogout successful." << endl;
     system("pause");
 }
-
-User UserManager::enterUserData() {
-    User user;
-
-    user.id = userFile.getLastId() + 1;
-    do {
-        cout << left << setw(13) << "First Name:";
-    } while (!Utils::validateInput(user.firstName = Utils::readLine(), UserFieldType::FIRST_NAME));
-
-    do {
-        cout << left << setw(13) << "Last Name:";
-    } while (!Utils::validateInput(user.lastName = Utils::readLine(), UserFieldType::LAST_NAME));
-
-    do {
-        cout << left << setw(13) << "Login:";
-    } while (!Utils::validateInput(user.userName = Utils::readLine(), UserFieldType::LOGIN) || !isLoginAvailable(user.userName));
-
-    do {
-        cout << left << setw(13) << "Password:";
-    } while (!Utils::validateInput(user.userPassword = Utils::readLine(), UserFieldType::PASSWORD));
-
-    Utils::upperFirstLowerRest(user.firstName);
-    Utils::upperFirstLowerRest(user.lastName);
-
-    return user;
-}
-

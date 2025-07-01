@@ -12,9 +12,6 @@ public:
 
     bool addTransactionToFile(const Transaction &transaction);
     vector <Transaction> loadUserTransactionsFromFile(const int userId);
-protected:
-
-private:
 };
 
 #endif // TRANSACTIONFILE_H

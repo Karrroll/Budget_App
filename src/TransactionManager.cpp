@@ -62,140 +62,6 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
     return transaction;
 }
 
-void TransactionManager::addTransaction(TransactionType type) {
-    bool success = false;
-    Transaction newTransaction = enterTransactionData(type);
-
-    if (type == TransactionType::INCOME)
-        success = incomeFile->addTransactionToFile(newTransaction);
-    else if (type == TransactionType::EXPENSE)
-        success = expenseFile->addTransactionToFile(newTransaction);
-    else {
-        cout << "\nUnknown transaction type." << endl;
-        system ("pause");
-        return;
-    }
-
-    if (type == TransactionType::INCOME && success) {
-        incomes.push_back(newTransaction);
-    } else if (type == TransactionType::EXPENSE && success) {
-        expenses.push_back(newTransaction);
-    } else {
-        cout << "\nTransaction add failed." << endl;
-        system("pause");
-        return;
-    }
-
-    cout << "\nTransaction added successfully." << endl;
-    system("pause");
-}
-
-void TransactionManager::showBalance(const int startDate, const int endDate) {
-    system("cls");
-    cout << "\t<<< BALANCE OVERVIEW >>>" << endl << endl;
-
-    cout << "INCOME TRANSACTIONS:" << endl;
-    vector <Transaction> filteredIncomeTransactions = filteredTransactionsByDate(incomes, startDate, endDate);
-
-    if (!filteredIncomeTransactions.empty()) {
-        sortTransactionsByDate(filteredIncomeTransactions);
-        showTransactions(filteredIncomeTransactions, TransactionType::INCOME);
-    } else {
-        cout << "No income transactions found in the selected period." << endl << endl;
-    }
-
-    cout << "EXPENSE TRANSACTIONS:" << endl;
-    vector <Transaction> filteredExpenseTransactions = filteredTransactionsByDate(expenses, startDate, endDate);
-
-    if (!filteredExpenseTransactions.empty()) {
-        sortTransactionsByDate(filteredExpenseTransactions);
-        showTransactions(filteredExpenseTransactions, TransactionType::EXPENSE);
-    } else {
-        cout << "No expense transactions found in the selected period." << endl << endl;
-    }
-
-    double totalIncomeAmount = calculateTotalTransactionsAmount(filteredIncomeTransactions);
-    double totalExpenseAmount = calculateTotalTransactionsAmount(filteredExpenseTransactions);
-    showSummaryBalance(totalIncomeAmount, totalExpenseAmount);
-}
-
-void TransactionManager::showCurrentMonthBalance() {
-    pair <int, int> dates = getStartAndEndDates(BalanceType::CURRENT_MONTH);
-    int startDate = dates.first;
-    int endDate = dates.second;
-
-    if (startDate == 0 || endDate == 0)
-        return;
-
-    showBalance(startDate, endDate);
-}
-
-void TransactionManager::showPreviousMonthBalance() {
-    pair <int, int> dates = getStartAndEndDates(BalanceType::PREVIOUS_MONTH);
-    int startDate = dates.first;
-    int endDate = dates.second;
-
-    if (startDate == 0 || endDate == 0)
-        return;
-    showBalance(startDate, endDate);
-}
-
-void TransactionManager::showCustomPeriodBalance() {
-    pair <int, int> dates = getStartAndEndDates(BalanceType::CUSTOM_PERIOD);
-    int startDate = dates.first;
-    int endDate = dates.second;
-
-    if (startDate == 0 || endDate == 0)
-        return;
-
-    showBalance(startDate, endDate);
-}
-
-void TransactionManager::showSummaryBalance(const double income, const double expense) {
-    double totalBalance = income - expense;
-    cout << string(55, '-') << endl;
-    cout << left << setw(24) << "TOTAL INCOME:" << fixed << setprecision(2) << income << endl;
-    cout << left << setw(24) << "TOTAL EXPENSE:" << fixed << setprecision(2) << -expense << endl << endl;
-    cout << left << setw(24) <<"TOTAL BALANCE:" << fixed << setprecision(2) << totalBalance << endl << endl;
-    system("pause");
-}
-
-vector <Transaction> TransactionManager::filteredTransactionsByDate(const vector <Transaction> &transactions, const int startDate, const int endDate) {
-    vector <Transaction> filteredTransactions;
-
-    for (const auto &transaction: transactions) {
-        if (transaction.date >= startDate && transaction.date <= endDate)
-            filteredTransactions.push_back(transaction);
-    }
-
-    return filteredTransactions;
-}
-
-void TransactionManager::sortTransactionsByDate(vector <Transaction> &transactions) {
-    sort(transactions.begin(), transactions.end(), [](const Transaction &a, const Transaction &b) {
-        return a.date < b.date;
-    });
-}
-
-void TransactionManager::showTransactions(const vector <Transaction> &transactions, TransactionType type) {
-    for (const auto &transaction: transactions) {
-        string date = DateMethods::convertToDateWithDashes(to_string(transaction.date));
-
-        cout << "Transaction ID: " << transaction.transactionId << "\tDate: " << date << endl;
-        cout << "Item: " << transaction.item << endl;
-        cout << "Amount: " << fixed << setprecision(2) << (type == TransactionType::INCOME ? transaction.amount : -transaction.amount) << endl << endl;
-    }
-}
-
-double TransactionManager::calculateTotalTransactionsAmount(const vector <Transaction> &transactions) {
-    double totalAmount = 0.0;
-
-    for (const auto &transaction: transactions)
-        totalAmount += transaction.amount;
-
-    return totalAmount;
-}
-
 pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType) {
     int startDate = 0, endDate = 0;
 
@@ -260,3 +126,141 @@ pair <int, int> TransactionManager::getStartAndEndDates(BalanceType balanceType)
         return {startDate, endDate};
     }
 }
+
+void TransactionManager::sortTransactionsByDate(vector <Transaction> &transactions) {
+    sort(transactions.begin(), transactions.end(), [](const Transaction &a, const Transaction &b) {
+        return a.date < b.date;
+    });
+}
+
+vector <Transaction> TransactionManager::filteredTransactionsByDate(const vector <Transaction> &transactions, const int startDate, const int endDate) {
+    vector <Transaction> filteredTransactions;
+
+    for (const auto &transaction: transactions) {
+        if (transaction.date >= startDate && transaction.date <= endDate)
+            filteredTransactions.push_back(transaction);
+    }
+
+    return filteredTransactions;
+}
+
+double TransactionManager::calculateTotalTransactionsAmount(const vector <Transaction> &transactions) {
+    double totalAmount = 0.0;
+
+    for (const auto &transaction: transactions)
+        totalAmount += transaction.amount;
+
+    return totalAmount;
+}
+
+void TransactionManager::showTransactions(const vector <Transaction> &transactions, TransactionType type) {
+    for (const auto &transaction: transactions) {
+        string date = DateMethods::convertToDateWithDashes(to_string(transaction.date));
+
+        cout << "Transaction ID: " << transaction.transactionId << "\tDate: " << date << endl;
+        cout << "Item: " << transaction.item << endl;
+        cout << "Amount: " << fixed << setprecision(2) << (type == TransactionType::INCOME ? transaction.amount : -transaction.amount) << endl << endl;
+    }
+}
+
+void TransactionManager::showBalance(const int startDate, const int endDate) {
+    system("cls");
+    cout << "\t<<< BALANCE OVERVIEW >>>" << endl << endl;
+
+    cout << "INCOME TRANSACTIONS:" << endl;
+    vector <Transaction> filteredIncomeTransactions = filteredTransactionsByDate(incomes, startDate, endDate);
+
+    if (!filteredIncomeTransactions.empty()) {
+        sortTransactionsByDate(filteredIncomeTransactions);
+        showTransactions(filteredIncomeTransactions, TransactionType::INCOME);
+    } else {
+        cout << "No income transactions found in the selected period." << endl << endl;
+    }
+
+    cout << "EXPENSE TRANSACTIONS:" << endl;
+    vector <Transaction> filteredExpenseTransactions = filteredTransactionsByDate(expenses, startDate, endDate);
+
+    if (!filteredExpenseTransactions.empty()) {
+        sortTransactionsByDate(filteredExpenseTransactions);
+        showTransactions(filteredExpenseTransactions, TransactionType::EXPENSE);
+    } else {
+        cout << "No expense transactions found in the selected period." << endl << endl;
+    }
+
+    double totalIncomeAmount = calculateTotalTransactionsAmount(filteredIncomeTransactions);
+    double totalExpenseAmount = calculateTotalTransactionsAmount(filteredExpenseTransactions);
+    showSummaryBalance(totalIncomeAmount, totalExpenseAmount);
+}
+
+void TransactionManager::showSummaryBalance(const double income, const double expense) {
+    double totalBalance = income - expense;
+    cout << string(55, '-') << endl;
+    cout << left << setw(24) << "TOTAL INCOME:" << fixed << setprecision(2) << income << endl;
+    cout << left << setw(24) << "TOTAL EXPENSE:" << fixed << setprecision(2) << -expense << endl << endl;
+    cout << left << setw(24) <<"TOTAL BALANCE:" << fixed << setprecision(2) << totalBalance << endl << endl;
+    system("pause");
+}
+
+void TransactionManager::addTransaction(TransactionType type) {
+    bool success = false;
+    Transaction newTransaction = enterTransactionData(type);
+
+    if (type == TransactionType::INCOME)
+        success = incomeFile->addTransactionToFile(newTransaction);
+    else if (type == TransactionType::EXPENSE)
+        success = expenseFile->addTransactionToFile(newTransaction);
+    else {
+        cout << "\nUnknown transaction type." << endl;
+        system ("pause");
+        return;
+    }
+
+    if (type == TransactionType::INCOME && success) {
+        incomes.push_back(newTransaction);
+    } else if (type == TransactionType::EXPENSE && success) {
+        expenses.push_back(newTransaction);
+    } else {
+        cout << "\nTransaction add failed." << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "\nTransaction added successfully." << endl;
+    system("pause");
+}
+
+void TransactionManager::showCurrentMonthBalance() {
+    pair <int, int> dates = getStartAndEndDates(BalanceType::CURRENT_MONTH);
+    int startDate = dates.first;
+    int endDate = dates.second;
+
+    if (startDate == 0 || endDate == 0)
+        return;
+
+    showBalance(startDate, endDate);
+}
+
+void TransactionManager::showPreviousMonthBalance() {
+    pair <int, int> dates = getStartAndEndDates(BalanceType::PREVIOUS_MONTH);
+    int startDate = dates.first;
+    int endDate = dates.second;
+
+    if (startDate == 0 || endDate == 0)
+        return;
+    showBalance(startDate, endDate);
+}
+
+void TransactionManager::showCustomPeriodBalance() {
+    pair <int, int> dates = getStartAndEndDates(BalanceType::CUSTOM_PERIOD);
+    int startDate = dates.first;
+    int endDate = dates.second;
+
+    if (startDate == 0 || endDate == 0)
+        return;
+
+    showBalance(startDate, endDate);
+}
+
+
+
+

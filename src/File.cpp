@@ -5,6 +5,12 @@ void File::setLastId(const int id) {
         this->lastId = id;
 }
 
+string File::getElementData(CMarkup &xmlFile, const string &elementName) {
+    if (xmlFile.FindElem(elementName))
+        return xmlFile.GetData();
+    return "";
+}
+
 bool File::isFileExist() {
     ifstream file(getFileName());
     return file.good();
@@ -34,10 +40,4 @@ void File::createNewXmlFileWithRootNode(CMarkup &xmlFile) {
 
 bool File::addChildNode(CMarkup &xmlFile) {
     return xmlFile.AddElem(getChildNodeName()) && xmlFile.IntoElem();
-}
-
-string File::getElementData(CMarkup &xmlFile, const string &elementName) {
-    if (xmlFile.FindElem(elementName))
-        return xmlFile.GetData();
-    return "";
 }

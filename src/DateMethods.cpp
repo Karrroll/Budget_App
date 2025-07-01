@@ -1,45 +1,5 @@
 #include "DateMethods.h"
 
-string DateMethods::selectDate() {
-    while (true) {
-        Menus::showMenu(MenuType::DATE_SELECTION_MENU);
-        char userChoice = Utils::readCharacter();
-
-        switch (userChoice) {
-            case '1':
-                return getTodayDate();
-            case '2':
-                return getUserSelectedDate();
-            default:
-                cout << "\nInvalid choice. Please try again." << endl;
-                system("pause");
-                break;
-        }
-    }
-}
-
-int DateMethods::getDaysInMonth(const int year, const int month) {
-    int maxDaysInMonth = 31;
-
-    switch(month) {
-        case 4: case 6: case 9: case 11:
-            maxDaysInMonth = 30;
-            break;
-        case 2:
-            if (isYearLeap(year))
-                maxDaysInMonth = 29;
-            else
-                maxDaysInMonth = 28;
-            break;
-    }
-
-    return maxDaysInMonth;
-}
-
-bool DateMethods::validateDate(const string &date) {
-    return (isDataFormatValid(date) && isDateRangeValid(date));
-}
-
 bool DateMethods::isYearLeap(const int year) {
     return ((year%4 == 0 && year%100 != 0) || (year%400 == 0));
 }
@@ -95,6 +55,63 @@ bool DateMethods::isDateRangeValid(const string &date) {
     return true;
 }
 
+bool DateMethods::confirmDate(const string &date) {
+    cout << "\nPress (y) to confirm or (n) to reject date: " << convertToDateWithDashes(date) << endl;
+    char userChoice = Utils::readCharacter();
+
+    if (userChoice == 'y' || userChoice == 'Y')
+        return true;
+
+    return false;
+}
+
+string DateMethods::convertToNoDashesDate(const string &date) {
+    string noDashesDate = date;
+    noDashesDate.erase(remove(noDashesDate.begin(), noDashesDate.end(), '-'), noDashesDate.end());
+
+    return noDashesDate;
+}
+
+string DateMethods::selectDate() {
+    while (true) {
+        Menus::showMenu(MenuType::DATE_SELECTION_MENU);
+        char userChoice = Utils::readCharacter();
+
+        switch (userChoice) {
+            case '1':
+                return getTodayDate();
+            case '2':
+                return getUserSelectedDate();
+            default:
+                cout << "\nInvalid choice. Please try again." << endl;
+                system("pause");
+                break;
+        }
+    }
+}
+
+int DateMethods::getDaysInMonth(const int year, const int month) {
+    int maxDaysInMonth = 31;
+
+    switch(month) {
+        case 4: case 6: case 9: case 11:
+            maxDaysInMonth = 30;
+            break;
+        case 2:
+            if (isYearLeap(year))
+                maxDaysInMonth = 29;
+            else
+                maxDaysInMonth = 28;
+            break;
+    }
+
+    return maxDaysInMonth;
+}
+
+bool DateMethods::validateDate(const string &date) {
+    return (isDataFormatValid(date) && isDateRangeValid(date));
+}
+
 string DateMethods::getTodayDate() {
     ostringstream todayDate;
 
@@ -120,23 +137,6 @@ string DateMethods::getUserSelectedDate() {
 
     if (!validateDate(noDashesDate) || !confirmDate(noDashesDate))
         return "0";
-
-    return noDashesDate;
-}
-
-bool DateMethods::confirmDate(const string &date) {
-    cout << "\nPress (y) to confirm or (n) to reject date: " << convertToDateWithDashes(date) << endl;
-    char userChoice = Utils::readCharacter();
-
-    if (userChoice == 'y' || userChoice == 'Y')
-        return true;
-
-    return false;
-}
-
-string DateMethods::convertToNoDashesDate(const string &date) {
-    string noDashesDate = date;
-    noDashesDate.erase(remove(noDashesDate.begin(), noDashesDate.end(), '-'), noDashesDate.end());
 
     return noDashesDate;
 }

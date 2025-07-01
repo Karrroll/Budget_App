@@ -17,6 +17,8 @@ private:
 
     User enterUserData();
     User *findUserById(const int id);
+
+    bool isLoginAvailable(const string &userName);
 public:
     UserManager(const string &userFileName);
 
@@ -24,7 +26,6 @@ public:
     void setLoggedUserId(const int id);
 
     bool isUserLoggedIn();
-    bool isLoginAvailable(const string &userName);
     void registerNewUser();
     void loginUser();
     void changeUserPassword();
