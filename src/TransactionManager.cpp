@@ -32,7 +32,7 @@ Transaction TransactionManager::enterTransactionData(TransactionType type) {
         transaction.transactionId = expenseFile->getLastId() + 1;
     }
 
-    transaction.userId = getLoggedUserId();
+    transaction.userId = LOGGED_USER_ID;
     cout << left << setw(10) << "Date:" << DateMethods::convertToDateWithDashes(dateString) << endl;
 
     do {

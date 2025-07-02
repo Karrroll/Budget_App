@@ -19,6 +19,7 @@ private:
     User *findUserById(const int id);
 
     bool isLoginAvailable(const string &userName);
+
 public:
     UserManager(const string &userFileName);
 

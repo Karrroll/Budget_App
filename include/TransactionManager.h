@@ -35,8 +35,6 @@ public:
     TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName);
     ~TransactionManager();
 
-    int getLoggedUserId() const { return LOGGED_USER_ID; };
-
     void addTransaction(TransactionType type);
     void showCurrentMonthBalance();
     void showPreviousMonthBalance();
