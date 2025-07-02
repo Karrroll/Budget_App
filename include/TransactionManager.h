@@ -13,8 +13,6 @@ using namespace std;
 class TransactionManager {
 private:
     const int LOGGED_USER_ID;
-    const string INCOME_FILE_NAME;
-    const string EXPENSE_FILE_NAME;
 
     vector <Transaction> incomes;
     vector <Transaction> expenses;

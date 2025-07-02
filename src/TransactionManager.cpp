@@ -1,10 +1,10 @@
 #include "TransactionManager.h"
 
-TransactionManager::TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName) : LOGGED_USER_ID(id), INCOME_FILE_NAME(incomeFileName), EXPENSE_FILE_NAME(expenseFileName) {
-    incomeFile = new TransactionFile(INCOME_FILE_NAME);
+TransactionManager::TransactionManager(const int id, const string &incomeFileName, const string &expenseFileName) : LOGGED_USER_ID(id) {
+    incomeFile = new TransactionFile(incomeFileName);
     incomes = incomeFile->loadUserTransactionsFromFile(LOGGED_USER_ID);
 
-    expenseFile = new TransactionFile(EXPENSE_FILE_NAME);
+    expenseFile = new TransactionFile(expenseFileName);
     expenses = expenseFile->loadUserTransactionsFromFile(LOGGED_USER_ID);
 }
 
